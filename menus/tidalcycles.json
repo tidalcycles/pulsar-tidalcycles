@@ -19,11 +19,14 @@
                 "label": "Eval Multi Line",
                 "command": "tidalcycles:eval-multi-line"
             }, {
+                "label": "Eval Multi Line, Multi Block",
+                "command": "tidalcycles:eval-multi-line-multi-block"
+            }, {
                 "label": "Eval Multi Line And Copy",
                 "command": "tidalcycles:eval-multi-line-copy"
             }, {
-                    "label": "Eval All Lines",
-                    "command": "tidalcycles:eval-all-lines"
+                "label": "Eval All Lines",
+                "command": "tidalcycles:eval-all-lines"
             }, {
                 "label": "Hush",
                 "command": "tidalcycles:hush"

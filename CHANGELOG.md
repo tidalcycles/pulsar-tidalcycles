@@ -6,6 +6,6 @@
 * fixed issue with TidalCycles commands firing even in non-.tidal files
 
 ## 0.8.5 - Eval All Lines
-* added support for eval'ing _all_ lines at once in the editor with `cmd+shift+enter`
-* can now eval multiple adjacent SuperDirt/Dirt blocks with the `multiline` eval command
-* additional keymap for hush: `ctrl+shift+h`
+* eval _all_ lines at once in the editor (indenting required)
+* eval multiple adjacent blocks with the `multiline` eval command (indenting required)
+* new keymap for hush: `ctrl+.`

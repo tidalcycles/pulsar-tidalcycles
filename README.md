@@ -12,7 +12,7 @@ Then, you can:
 
   * `cmd+enter` to evaluate multiple-lines or selection
 
-  * `cmd+shift+enter` to evaluate all text in the editor at once (proper indenting required)
+  * `cmd+shift+space` to evaluate all text in the editor at once (proper indenting required)
 
 To send patterns to [SuperDirt](https://github.com/musikinformatik/SuperDirt), use `d1` .. `d9`, e.g.:
 
