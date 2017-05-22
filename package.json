@@ -6,7 +6,9 @@
   "activationCommands": {
     "atom-text-editor": [
       "tidalcycles:eval",
-      "tidalcycles:eval-multi-line"
+      "tidalcycles:eval-multi-line",
+      "tidalcycles:eval-multi-line-multi-block",
+      "tidalcycles:eval-all-lines"
     ],
     "atom-workspace": "tidalcycles:boot"
   },
