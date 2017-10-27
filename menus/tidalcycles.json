@@ -22,6 +22,9 @@
                 "label": "Eval Multi Line And Copy",
                 "command": "tidalcycles:eval-multi-line-copy"
             }, {
+                "label": "Copy Console ",
+                "command": "tidalcycles:copy-console"
+            }, {
                 "label": "Hush",
                 "command": "tidalcycles:hush"
             }]
