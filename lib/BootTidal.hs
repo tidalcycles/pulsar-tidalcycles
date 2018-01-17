@@ -29,4 +29,6 @@ let bps x = cps (x/2)
 let hush = mapM_ ($ silence) [d1,d2,d3,d4,d5,d6,d7,d8,d9,c1,c2,c3,c4,c5,c6,c7,c8,c9]
 let solo = (>>) hush
 
+let runnow d p = do { now <- getNow; d $ (pure (nextSam now)) ~> p }
+
 :set prompt "tidal> "
