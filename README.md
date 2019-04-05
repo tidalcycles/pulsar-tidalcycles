@@ -3,7 +3,7 @@
 [TidalCycles](https://tidalcycles.org) is a live-coding pattern language
 
 For installation instructions, please visit:
-  http://tidalcycles.org/getting_started.html
+  https://tidalcycles.org/index.php/Installation
 
 Then, you can:
   * Open a `.tidal` file
