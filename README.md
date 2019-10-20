@@ -105,3 +105,9 @@ If you'd like to contribute to this package, here are some guidelines:
 A `.jsbeautifyfc` file is used to define JavaScript formatting settings. Please use
 a beautifier package (we recommend `atom-beautify`) to format your changes with
 these settings.
+
+## Specs
+
+Always run specs before PR.  
+On Atom, execute the `Window: Run Package Specs` command.  
+`0 failures` should be the result
