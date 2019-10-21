@@ -10,6 +10,9 @@
                 "label": "Boot TidalCycles",
                 "command": "tidalcycles:boot"
             }, {
+                "label": "Reboot Tidalcycles",
+                "command": "tidalcycles:reboot"
+            }, {
                 "label": "Eval",
                 "command": "tidalcycles:eval"
             }, {
