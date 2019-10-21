@@ -21,20 +21,12 @@ d1 $ sound "bd cp"
 
 # Configurable Boot Options
 
-By default, Atom will use a default Tidal bootup sequence that doesn't really do
-anything special other than create the `d1..d9` and `c1..c9` Dirt connections.
+By default, Atom will try to locate a `BootTidal.hs` file in the current directory.
 
 If you'd like to provide a path to your own custom boot file on your computer, use
 the *Boot Tidal Path* setting to do so.
 
-Further, if you'd like Atom to locate a `BootTidal.hs` file in the current directory,
-check the *Use Boot File In Current Directory* option.
-
-Boot file order of precedence:
-
-1. Current directory `BootTidal.hs`
-2. Custom Boot Tidal Path
-3. Default bootup provided by the package
+If there's no `BootTidal.hs` file in the current directory and no custom boot file provided, Atom will use a [default Tidal bootup sequence](lib/BootTidal.hs)
 
 ## Sample Default Boot File
 
