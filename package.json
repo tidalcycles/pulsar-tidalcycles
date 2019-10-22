@@ -20,5 +20,12 @@
   "license": "GPL-3.0",
   "engines": {
     "atom": ">=0.174.0 <2.0.0"
+  },
+  "providedServices": {
+    "autocomplete.provider": {
+      "versions": {
+        "2.0.0": "autocompleteProvider"
+      }
+    }
   }
 }
