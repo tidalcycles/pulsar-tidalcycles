@@ -8,14 +8,6 @@ atom-text-editor.editor .line {
   transition:  background-color .8s ease-out;
   -webkit-transition: background-color .8s ease-out;
 
-  // &.line-green {
-  //   background-color: @green-color;
-  // }
-  //
-  // &.line-blue {
-  //   background-color: @blue-color;
-  // }
-
   &.line-error {
     background-color: fadeout(@background-color-error, 95%);
     border: 1px solid fadeout(@background-color-error, 50%);
@@ -52,6 +44,7 @@ atom-pane div.tidalcycles.console {
     font-family: Consolas, monospace;
     font-size: 14px;
     white-space: pre-wrap;
+    word-break: keep-all;
   }
   .error{
     color: @text-color-error;
