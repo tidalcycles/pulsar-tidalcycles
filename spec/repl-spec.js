@@ -3,7 +3,8 @@ const BootTidal = require('../lib/boot-tidal')
 const fs = require('fs')
 
 describe('repl', () => {
-  let repl = new REPL()
+  let consoleView = { logStdout: () => {} }
+  let repl = new REPL(consoleView)
 
   beforeEach(() => {
     waitsForPromise(() => atom.packages.activate('tidalcycles'))
