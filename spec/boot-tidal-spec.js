@@ -6,12 +6,7 @@ describe('boot-tidal', () => {
   let bootTidal = new BootTidal([{ path: '/current/directory' }])
 
   beforeEach(() => {
-    this.originalPlatform = process.platform;
     waitsForPromise(() => atom.packages.activate('tidalcycles'))
-  })
-
-  afterEach(() => {
-    setPlatform(this.originalPlatform)
   })
 
   describe('boot file sequence', () => {
@@ -29,8 +24,7 @@ describe('boot-tidal', () => {
       expect(bootTidal.choosePath()).toBe('/custom/directory/BootTidal.hs')
     })
 
-    it('should use installation boot file when OS it exists', () => {
-      setPlatform('linux')
+    it('should use installation boot file when ghci gives it', () => {
       spyOn(fs, 'existsSync').andCallFake(path => {
         switch (path) {
           case '/some/path/tidal/BootTidal.hs': return true;
@@ -43,7 +37,6 @@ describe('boot-tidal', () => {
     })
 
     it('should choose default boot file when no custom provided, no file in current directory and platform resolved file does not exist', () => {
-      setPlatform('linux')
       spyOn(fs, 'existsSync').andCallFake(path => {
         switch (path) {
           case '/unexistent/path': return false;
@@ -56,23 +49,11 @@ describe('boot-tidal', () => {
     })
 
     it('should choose default boot file when no custom provided, no file in current directory and tidal installation path resolver fails', () => {
-      setPlatform('linux')
       spyOn(fs, 'existsSync').andReturn(false);
       spyOn(child_process, 'execSync').andReturn('no-path-in-this-output\n')
 
       expect(bootTidal.choosePath()).toContain('/lib/BootTidal.hs')
     })
 
-    it(`should choose default boot file when no custom provided, no file in current directory and platform is unknown`, () => {
-      setPlatform('unknown')
-      spyOn(fs, 'existsSync').andReturn(false)
-
-      expect(bootTidal.choosePath()).toContain('/lib/BootTidal.hs')
-    })
-
   })
 })
-
-function setPlatform(name) {
-  Object.defineProperty(process, 'platform', { value: name });
-}
