@@ -29,28 +29,36 @@ describe('boot-tidal', () => {
       expect(bootTidal.choosePath()).toBe('/custom/directory/BootTidal.hs')
     })
 
-    it('should choose tidal installation boot file when OS is a known one', () => {
+    it('should use installation boot file when OS it exists', () => {
       setPlatform('linux')
       spyOn(fs, 'existsSync').andCallFake(path => {
         switch (path) {
-          case '/posix/tidal/BootTidal.hs': return true;
+          case '/some/path/tidal/BootTidal.hs': return true;
           default: return false;
         }
       });
-      spyOn(child_process, 'execSync').andReturn('/posix/tidal\n')
+      spyOn(child_process, 'execSync').andReturn('data-dir: /some/path/tidal\n')
 
-      expect(bootTidal.choosePath()).toBe('/posix/tidal/BootTidal.hs')
+      expect(bootTidal.choosePath()).toBe('/some/path/tidal/BootTidal.hs')
     })
 
     it('should choose default boot file when no custom provided, no file in current directory and platform resolved file does not exist', () => {
       setPlatform('linux')
       spyOn(fs, 'existsSync').andCallFake(path => {
         switch (path) {
-          case '/posix/tidal/BootTidal.hs': return false;
+          case '/unexistent/path': return false;
           default: return false;
         }
       });
-      spyOn(child_process, 'execSync').andReturn('/posix/tidal\n')
+      spyOn(child_process, 'execSync').andReturn('data-dir: /unexistent/path\n')
+
+      expect(bootTidal.choosePath()).toContain('/lib/BootTidal.hs')
+    })
+
+    it('should choose default boot file when no custom provided, no file in current directory and tidal installation path resolver fails', () => {
+      setPlatform('linux')
+      spyOn(fs, 'existsSync').andReturn(false);
+      spyOn(child_process, 'execSync').andReturn('no-path-in-this-output\n')
 
       expect(bootTidal.choosePath()).toContain('/lib/BootTidal.hs')
     })
