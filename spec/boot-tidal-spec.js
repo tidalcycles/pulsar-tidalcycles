@@ -1,5 +1,5 @@
-const BootTidal = require('../lib/boot-tidal.js')
-const Ghci = require('../lib/ghci.js')
+const BootTidal = require('../lib/boot-tidal')
+const Ghc = require('../lib/ghc')
 const fs = require('fs')
 const child_process = require('child_process')
 
@@ -32,7 +32,7 @@ describe('boot-tidal', () => {
           default: return false;
         }
       });
-      spyOn(Ghci, 'tidalDataDir').andReturn('/some/path/tidal')
+      spyOn(Ghc, 'tidalDataDir').andReturn('/some/path/tidal')
 
       expect(bootTidal.choosePath()).toBe('/some/path/tidal/BootTidal.hs')
     })
@@ -44,7 +44,7 @@ describe('boot-tidal', () => {
           default: return false;
         }
       });
-      spyOn(Ghci, 'tidalDataDir').andReturn('/unexistent/path')
+      spyOn(Ghc, 'tidalDataDir').andReturn('/unexistent/path')
 
       expect(bootTidal.choosePath()).toContain('/lib/BootTidal.hs')
     })
