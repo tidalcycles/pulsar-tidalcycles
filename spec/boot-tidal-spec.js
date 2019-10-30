@@ -1,4 +1,5 @@
 const BootTidal = require('../lib/boot-tidal.js')
+const Ghci = require('../lib/ghci.js')
 const fs = require('fs')
 const child_process = require('child_process')
 
@@ -24,14 +25,14 @@ describe('boot-tidal', () => {
       expect(bootTidal.choosePath()).toBe('/custom/directory/BootTidal.hs')
     })
 
-    it('should use installation boot file when ghci gives it', () => {
+    it('should use installation boot file when it exists and no custom provided and no file in current directory', () => {
       spyOn(fs, 'existsSync').andCallFake(path => {
         switch (path) {
           case '/some/path/tidal/BootTidal.hs': return true;
           default: return false;
         }
       });
-      spyOn(child_process, 'execSync').andReturn('data-dir: /some/path/tidal\n')
+      spyOn(Ghci, 'tidalDataDir').andReturn('/some/path/tidal')
 
       expect(bootTidal.choosePath()).toBe('/some/path/tidal/BootTidal.hs')
     })
@@ -43,14 +44,7 @@ describe('boot-tidal', () => {
           default: return false;
         }
       });
-      spyOn(child_process, 'execSync').andReturn('data-dir: /unexistent/path\n')
-
-      expect(bootTidal.choosePath()).toContain('/lib/BootTidal.hs')
-    })
-
-    it('should choose default boot file when no custom provided, no file in current directory and tidal installation path resolver fails', () => {
-      spyOn(fs, 'existsSync').andReturn(false);
-      spyOn(child_process, 'execSync').andReturn('no-path-in-this-output\n')
+      spyOn(Ghci, 'tidalDataDir').andReturn('/unexistent/path')
 
       expect(bootTidal.choosePath()).toContain('/lib/BootTidal.hs')
     })
