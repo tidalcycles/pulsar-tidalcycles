@@ -53,6 +53,14 @@ describe('ghc', () => {
 
       expect(Ghc.tidalDataDir()).toBe('no-path-in-this-output')
     })
+
+    it(`should return error if it happens`, () => {
+      spyOn(child_process, 'execSync').andCallFake(() => {
+        throw "error"
+      })
+
+      expect(Ghc.tidalDataDir()).toBe('error')
+    })
   })
 
 })
