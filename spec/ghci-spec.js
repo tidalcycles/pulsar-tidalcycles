@@ -33,6 +33,13 @@ describe('ghc', () => {
       expect(Ghc.commandPath('ghci')).toBe('/some/path/ghci')
       expect(Ghc.commandPath('ghc-pkg')).toBe('/some/path/ghc-pkg')
     })
+
+    it(`should handle stack exec path style`, () => {
+      atom.config.set('tidalcycles.ghciPath', 'stack exec --package tidal – ghci')
+
+      expect(Ghc.commandPath('ghci')).toBe('stack exec --package tidal – ghci')
+      expect(Ghc.commandPath('ghc-pkg')).toBe('stack exec --package tidal – ghc-pkg')
+    })
   })
 
   describe('tidal data dir', () => {
