@@ -8,43 +8,49 @@ For installation instructions, please visit:
 
 Then, you can:
   * Open a `.tidal` file
-
   * `shift+enter` to evaluate the current line or selection
-
-  * `cmd+enter` to evaluate multiple-lines or selection
+  * `(cmd/ctrl)+enter` to evaluate multiple-lines or selection
 
 To send patterns to [SuperDirt](https://github.com/musikinformatik/SuperDirt), use `d1` .. `d9`, e.g.:
-
-````
+```
 d1 $ sound "bd cp"
-````
+```
 
-# Configurable Boot Options
+## Configuration
 
-By default, Atom will try to locate a `BootTidal.hs` file in the current directory.
+### Haskell Path
 
-If you'd like to provide a path to your own custom boot file on your computer, use
-the *Boot Tidal Path* setting to do so.
+By default the plugin will use the `ghci` and `ghc-pkg` binaries in $PATH configuration.
 
-If there's no `BootTidal.hs` file in the current directory and no custom boot file provided, Atom will use a [default Tidal bootup sequence](lib/BootTidal.hs)
+You can configure your Haskell binary folder to use a different version of it.
 
-## Sample Default Boot File
+### Boot Tidal Path
 
-If you create your own boot file, you may start with the default:\
-[BootTidal.hs](lib/BootTidal.hs)
+The plugin will load the `BootTidal.hs` file according to this sequence:
+  * if configured, the file set in the  *Boot Tidal Path* configuration
+  * if exists, the one in the current directory
+  * if exists, the one in the current Tidal installation, given by the `ghc-pkg` binary configured with *Haskell Path*
+  * the fallback choice is the one [included with the plugin](lib/BootTidal.hs)
 
-# Contributing
+### Flags
+  * **Autocomplete**: enable/disable the autocomplete feature
+  * **Filter Prompt From Log Messages**: filter long prompt comming from ghci
+  * **Only Log Last Message**: shows only last log message on console
+  * **Only Show Log When Errors**: show only errors from ghci
+
+
+## Contributing
 
 If you'd like to contribute to this package, here are some guidelines:
 
-## JavaScript Formatting
+### JavaScript Formatting
 
 A `.jsbeautifyfc` file is used to define JavaScript formatting settings. Please use
 a beautifier package (we recommend `atom-beautify`) to format your changes with
 these settings.
 
-## Specs
+### Specs
 
 Always run specs before PR.  
-On Atom, execute the `Window: Run Package Specs` command.  
+On Atom, execute the `Window: Run Package Specs` command (`ctrl+shift+y`).  
 `0 failures` should be the result
