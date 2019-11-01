@@ -32,8 +32,20 @@ The plugin will load the `BootTidal.hs` file according to this sequence:
   * if exists, the one in the current Tidal installation, given by the `ghc-pkg` binary configured with *Haskell Path*
   * the fallback choice is the one [included with the plugin](lib/BootTidal.hs)
 
-### Flags
-  * **Autocomplete**: enable/disable the autocomplete feature
+### Autocomplete
+You can turn on/off autocomplete with flag.
+
+#### Documentation details with Hoogle
+With [hoogle](https://github.com/ndmitchell/hoogle/blob/master/docs/Install.md) the autocomplete experience will improve and official tidal documentation will be shown.
+
+Install hoogle and set the *Hoogle Path* configuration (by default it's already `hoogle`) if you install it with `stack`, add two dashes at the end of the property (e.g. `stack hoogle --`).
+
+After installation you have to generate tidal documentation, in your terminal run:\
+`hoogle generate tidal`\
+or\
+`stack hoogle -- generate tidal` (with stack)
+
+### Other configurations
   * **Filter Prompt From Log Messages**: filter long prompt comming from ghci
   * **Only Log Last Message**: shows only last log message on console
   * **Only Show Log When Errors**: show only errors from ghci
