@@ -28,6 +28,7 @@ describe('autocompleteProvider', () => {
 
     expect(suggestions).toContain({
       text: 'listToPat',
+      snippet: 'listToPat ',
       description: '[a] -> Sound.Tidal.Pattern.Pattern a',
       type: 'function',
       rightLabel: 'Sound.Tidal.Core',
@@ -44,6 +45,7 @@ describe('autocompleteProvider', () => {
 
     expect(suggestions).toContain({
       text: 'phaserdepth',
+      snippet: 'phaserdepth ',
       description: 'Sound.Tidal.Pattern.Pattern Double -> Sound.Tidal.Pattern.ControlPattern',
       type: 'function',
       rightLabel: 'Sound.Tidal.Params',
@@ -59,6 +61,7 @@ describe('autocompleteProvider', () => {
 
     expect(suggestions).toContain({
       text: '|<|',
+      snippet: '|<| ',
       description: '(Applicative a, Sound.Tidal.Core.Unionable b) => a b -> a b -> a b',
       type: 'function',
       rightLabel: 'Sound.Tidal.Core',
