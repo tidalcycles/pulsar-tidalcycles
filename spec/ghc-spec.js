@@ -1,4 +1,5 @@
 const child_process = require('child_process')
+const fs = require('fs')
 const Ghc = require('../lib/ghc')
 
 describe('ghc', () => {
@@ -8,7 +9,16 @@ describe('ghc', () => {
   })
 
   describe('command path', () => {
-    it(`should be itself by default`, () => {
+    it(`should choose ghcup path by default`, () => {
+      spyOn(fs, 'existsSync').andReturn(true)
+
+      expect(Ghc.commandPath('ghci')).toBe('~/.ghcup/bin/ghci')
+      expect(Ghc.commandPath('ghc-pkg')).toBe('~/.ghcup/bin/ghc-pkg')
+    })
+
+    it(`should be itself if ghcup path does not exists`, () => {
+      spyOn(fs, 'existsSync').andReturn(false)
+
       expect(Ghc.commandPath('ghci')).toBe('ghci')
       expect(Ghc.commandPath('ghc-pkg')).toBe('ghc-pkg')
     })
