@@ -2,9 +2,10 @@ const BootTidal = require('../lib/boot-tidal')
 const Ghc = require('../lib/ghc')
 const fs = require('fs')
 const child_process = require('child_process')
+const ghc = { tidalDataDir() {} }
 
 describe('boot-tidal', () => {
-  let bootTidal = new BootTidal([{ path: '/current/directory' }])
+  let bootTidal = new BootTidal(ghc, [{ path: '/current/directory' }])
 
   beforeEach(() => {
     waitsForPromise(() => atom.packages.activate('tidalcycles'))
@@ -32,7 +33,7 @@ describe('boot-tidal', () => {
           default: return false;
         }
       });
-      spyOn(Ghc, 'tidalDataDir').andReturn('/some/path/tidal')
+      spyOn(ghc, 'tidalDataDir').andReturn('/some/path/tidal')
 
       expect(bootTidal.choosePath()).toBe('/some/path/tidal/BootTidal.hs')
     })
@@ -44,7 +45,7 @@ describe('boot-tidal', () => {
           default: return false;
         }
       });
-      spyOn(Ghc, 'tidalDataDir').andReturn('/unexistent/path')
+      spyOn(ghc, 'tidalDataDir').andReturn('/unexistent/path')
 
       expect(bootTidal.choosePath()).toContain('/lib/BootTidal.hs')
     })
