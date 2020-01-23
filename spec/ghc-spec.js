@@ -16,8 +16,10 @@ describe('ghc', () => {
 
       ghc.init()
 
-      expect(ghc.interactivePath).toBe('~/.ghcup/bin/ghci')
-      expect(ghc.pkgPath).toBe('~/.ghcup/bin/ghc-pkg')
+      expect(ghc.interactivePath).toContain('/home/')
+      expect(ghc.interactivePath).toContain('/.ghcup/bin/ghci')
+      expect(ghc.pkgPath).toContain('/home/')
+      expect(ghc.pkgPath).toContain('/.ghcup/bin/ghc-pkg')
     })
 
     it(`should be itself if ghcup path does not exists`, () => {
@@ -36,6 +38,17 @@ describe('ghc', () => {
 
       expect(ghc.interactivePath).toBe('/some/path/ghci')
       expect(ghc.pkgPath).toBe('/some/path/ghc-pkg')
+    })
+
+    it(`should replace tilde with home path from ghciPath property if it exists`, () => {
+      atom.config.set('tidalcycles.ghciPath', '~/path/to/ghci')
+
+      ghc.init()
+
+      expect(ghc.interactivePath).toContain('/home/')
+      expect(ghc.interactivePath).toContain('/path/to/ghci')
+      expect(ghc.pkgPath).toContain('/home/')
+      expect(ghc.pkgPath).toContain('/path/to/ghc-pkg')
     })
 
     it(`should append command to ghciPath property if this indicates a folder`, () => {
