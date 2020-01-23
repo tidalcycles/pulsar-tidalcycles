@@ -1,5 +1,6 @@
 const child_process = require('child_process')
 const fs = require('fs')
+const os = require('os')
 const Ghc = require('../lib/ghc')
 
 describe('ghc', () => {
@@ -16,10 +17,8 @@ describe('ghc', () => {
 
       ghc.init()
 
-      expect(ghc.interactivePath).toContain('/home/')
-      expect(ghc.interactivePath).toContain('/.ghcup/bin/ghci')
-      expect(ghc.pkgPath).toContain('/home/')
-      expect(ghc.pkgPath).toContain('/.ghcup/bin/ghc-pkg')
+      expect(ghc.interactivePath).toBe(os.homedir() + '/.ghcup/bin/ghci')
+      expect(ghc.pkgPath).toContain(os.homedir() + '/.ghcup/bin/ghc-pkg')
     })
 
     it(`should be itself if ghcup path does not exists`, () => {
@@ -45,10 +44,8 @@ describe('ghc', () => {
 
       ghc.init()
 
-      expect(ghc.interactivePath).toContain('/home/')
-      expect(ghc.interactivePath).toContain('/path/to/ghci')
-      expect(ghc.pkgPath).toContain('/home/')
-      expect(ghc.pkgPath).toContain('/path/to/ghc-pkg')
+      expect(ghc.interactivePath).toBe(os.homedir() + '/path/to/ghci')
+      expect(ghc.pkgPath).toBe(os.homedir() + '/path/to/ghc-pkg')
     })
 
     it(`should append command to ghciPath property if this indicates a folder`, () => {
