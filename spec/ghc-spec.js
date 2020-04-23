@@ -74,6 +74,15 @@ describe('ghc', () => {
       expect(ghc.interactivePath).toBe('stack exec --package tidal – ghci')
       expect(ghc.pkgPath).toBe('stack exec --package tidal – ghc-pkg')
     })
+
+    it(`should handle nix-shell path style`, () => {
+      atom.config.set('tidalcycles.ghciPath', 'nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run ghci')
+
+      ghc.init()
+
+      expect(ghc.interactivePath).toBe('nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run ghci')
+      expect(ghc.pkgPath).toBe('nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run ghc-pkg')
+    })
   })
 
   describe('tidal data dir', () => {
