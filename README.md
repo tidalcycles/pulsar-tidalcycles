@@ -18,11 +18,18 @@ d1 $ sound "bd cp"
 
 ## Configuration
 
+### Interpreter
+You can choose between 3 Haskell interpreters:
+* Default: ghci installed with Cabal is the default choice
+* Stack: ghci installed with stack
+* Nix: ghci installed with nix
+
 ### Haskell Path
 
 By default the plugin will use the `ghci` and `ghc-pkg` binaries in $PATH configuration.
 
 You can configure your Haskell binary folder to use a different version of it.
+(Only works with *Default* interpreter)
 
 ### Boot Tidal Path
 
