@@ -2,6 +2,7 @@ const child_process = require('child_process')
 const fs = require('fs')
 const os = require('os')
 const Ghc = require('../lib/ghc')
+const Ghci = require('../lib/ghci')
 
 describe('ghc', () => {
 
@@ -183,6 +184,39 @@ describe('ghc', () => {
       ghc.browseTidal(() => {})
 
       expect(child_process.exec.calls[0].args[0]).toBe('echo ":browse Sound.Tidal.Context" | nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run ghci')
+    })
+  })
+
+  describe(`interactive`, () => {
+    it(`should wrap ghci path with double quotes when interpreter is default`, () => {
+      atom.config.set('tidalcycles.interpreter', 'default')
+      atom.config.set('tidalcycles.ghciPath', '/path whitespace/')
+      spyOn(child_process, 'spawn').andReturn({ stderr: { on: () => {}}, stdout: {on: () => {}}})
+
+      ghc.init()
+      ghc.interactive()
+
+      expect(child_process.spawn.calls[0].args[0]).toBe('"/path whitespace/ghci"')
+    })
+
+    it(`should not wrap ghci path with double quotes when interpreter is stack`, () => {
+      atom.config.set('tidalcycles.interpreter', 'stack')
+      spyOn(child_process, 'spawn').andReturn({ stderr: { on: () => {}}, stdout: {on: () => {}}})
+
+      ghc.init()
+      ghc.interactive()
+
+      expect(child_process.spawn.calls[0].args[0]).toBe('stack exec --package tidal ghci')
+    })
+
+    it(`should not wrap ghci path with double quotes when interpreter is nix`, () => {
+      atom.config.set('tidalcycles.interpreter', 'nix')
+      spyOn(child_process, 'spawn').andReturn({ stderr: { on: () => {}}, stdout: {on: () => {}}})
+
+      ghc.init()
+      ghc.interactive()
+
+      expect(child_process.spawn.calls[0].args[0]).toBe('nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run ghci')
     })
   })
 
