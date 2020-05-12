@@ -65,9 +65,9 @@ eval #2>
 etc...
 ```
 #### Placeholders
-* *%ec%*: eval count
-* *%ts%*: current timestamp (unix format, seconds)
-* *%diff%*: character comparison difference between last two evaluations
+* *%ec*: eval count
+* *%ts*: current timestamp (unix format, seconds)
+* *%diff*: character comparison difference between last two evaluations
 
 ### Other configurations
   * **Only Log Last Message**: shows only last log message on console
