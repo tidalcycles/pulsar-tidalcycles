@@ -66,6 +66,7 @@ etc...
 ```
 #### Placeholders
 * *%ec%*: eval count
+* *%ts%*: current timestamp (unix format, seconds)
 
 ### Other configurations
   * **Only Log Last Message**: shows only last log message on console
