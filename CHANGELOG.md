@@ -1,3 +1,8 @@
+## 3.10.0
+* Add `ctrl-.` shortcut for hush command #102
+* Add Console prompt customization, including some placeholders (described in [README](README.md))
+* Removed obsolete `filterPromptFromLogMessages` configuration, with console prompt customization, the prompt log message is always filtered.
+
 ## 3.9.0
 * Add interpreter configuration, to launch TidalCycles with *stack* or *nix*
 * In BootTidal.hs moved prompt-cont line to the end of the file to avoid problems with old version of GHC
