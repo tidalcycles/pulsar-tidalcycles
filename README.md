@@ -52,8 +52,24 @@ After installation you have to generate tidal documentation, in your terminal ru
 or\
 `stack hoogle -- generate tidal` (with stack)
 
+### Console Prompt
+Customize the console prompt with a string.
+Placeholders can be used, e.g.
+```
+eval #%ec
+```
+will prompt:
+```
+eval #1>
+eval #2>
+etc...
+```
+#### Placeholders
+* *%ec*: eval count
+* *%ts*: current timestamp (unix format, seconds)
+* *%diff*: character comparison difference between last two evaluations
+
 ### Other configurations
-  * **Filter Prompt From Log Messages**: filter long prompt comming from ghci
   * **Only Log Last Message**: shows only last log message on console
   * **Only Show Log When Errors**: show only errors from ghci
 
