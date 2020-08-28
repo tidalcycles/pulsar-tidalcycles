@@ -1,3 +1,6 @@
+## 3.10.1
+* Fix `#` syntax highlight #109
+
 ## 3.10.0
 * Add `ctrl-.` shortcut for hush command #102
 * Add Console prompt customization, including some placeholders (described in [README](README.md))
