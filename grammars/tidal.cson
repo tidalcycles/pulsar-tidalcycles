@@ -146,14 +146,6 @@
     'name': 'constant.numeric.haskell'
   }
   {
-    'captures':
-      '1':
-        'name': 'punctuation.definition.preprocessor.c'
-    'comment': 'In addition to Haskell\'s "native" syntax, GHC permits the C preprocessor to be run on a source file.'
-    'match': '^\\s*(#)\\s*\\w+'
-    'name': 'meta.preprocessor.c'
-  }
-  {
     'include': '#pragma'
   }
   {
