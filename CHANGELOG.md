@@ -1,3 +1,6 @@
+## 3.11.0
+* Add `ctrl-alt-shift-enter` shortcut to evaluate all the code in the editor
+
 ## 3.10.1
 * Fix `#` syntax highlight #109
 
