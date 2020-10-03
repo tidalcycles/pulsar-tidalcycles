@@ -2,6 +2,7 @@
   "atom-workspace atom-text-editor[data-grammar~='tidalcycles']": {
     "shift-enter": "tidalcycles:eval",
     "alt-shift-enter": "tidalcycles:eval-copy",
+    "ctrl-shift-alt-enter": "tidalcycles:eval-whole-editor",
     "cmd-enter": "tidalcycles:eval-multi-line",
     "ctrl-enter": "tidalcycles:eval-multi-line",
     "alt-cmd-enter": "tidalcycles:eval-multi-line-copy",

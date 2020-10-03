@@ -10,6 +10,7 @@ Then, you can:
   * Open a `.tidal` file
   * `shift+enter` to evaluate the current line or selection
   * `(cmd/ctrl)+enter` to evaluate multiple-lines or selection
+  * `ctrl+alt+shift+enter` to evaluate all the editor
 
 To send patterns to [SuperDirt](https://github.com/musikinformatik/SuperDirt), use `d1` .. `d9`, e.g.:
 ```
