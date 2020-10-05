@@ -10,7 +10,7 @@ Then, you can:
   * Open a `.tidal` file
   * `shift+enter` to evaluate the current line or selection
   * `(cmd/ctrl)+enter` to evaluate multiple-lines or selection
-  * `ctrl+alt+shift+enter` to evaluate all the editor
+  * `ctrl+alt+shift+enter` to evaluate the whole editor
 
 To send patterns to [SuperDirt](https://github.com/musikinformatik/SuperDirt), use `d1` .. `d9`, e.g.:
 ```
@@ -74,6 +74,21 @@ etc...
   * **Only Log Last Message**: shows only last log message on console
   * **Only Show Log When Errors**: show only errors from ghci
 
+
+## Troubleshooting
+
+### Some flags have not been recognized: prompt-cont
+The GHC version is too old (like 8.0.3).
+Solutions:
+* Comment, remove or bring to the end of the file the row `:set prompt-cont ""` in the `BootTidal.hs` file
+* Upgrade GHC (to at least 8.6)
+
+### '<path>' is not recognized as an internal or external command, operable program or batch file.
+The BootTidal.hs and ghci path cannot contains whitespace inside.
+Solutions:
+* put you scripts and the BootTidal.hs in a path that doesn't contain whitespaces.
+
+Note: there's a fix coming in GHC version 8.12
 
 ## Contributing
 
