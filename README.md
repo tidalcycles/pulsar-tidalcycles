@@ -75,6 +75,11 @@ The atom plugin is listening on this specified port for incoming osc messages.
 
 * Default Port: 3333
 
+### Osc Eval Ip
+The atom plugin ist listenting on this ip address for incoming osc messages.
+
+* Default Ip: 127.0.0.1
+
 ### Osc Eval Address
 The atom plugin is filtering incoming osc messages with this specified address. 
 * Default address: /atom/eval
