@@ -70,6 +70,20 @@ etc...
 * *%ts*: current timestamp (unix format, seconds)
 * *%diff*: character comparison difference between last two evaluations
 
+### Osc Eval Port
+The atom plugin is listening on this specified port for incoming osc messages.
+
+* Default Port: 3333
+
+### Osc Eval Address
+The atom plugin is filtering incoming osc messages with this specified address. 
+* Default address: /atom/eval
+
+Three values are considered:
+1. line
+2. multi_line
+3. whole_editor
+
 ### Other configurations
   * **Show error notifications**: show atom notifications on error  
   * **Only Log Last Message**: shows only last log message on console
