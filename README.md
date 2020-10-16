@@ -71,6 +71,7 @@ etc...
 * *%diff*: character comparison difference between last two evaluations
 
 ### Other configurations
+  * **Show error notifications**: show atom notifications on error  
   * **Only Log Last Message**: shows only last log message on console
   * **Only Show Log When Errors**: show only errors from ghci
 

@@ -1,3 +1,6 @@
+## 3.12.0
+* Show atom error notifications by default. Should help troubleshooting. Could be disabled in configuration.
+
 ## 3.11.0
 * Add `ctrl-alt-shift-enter` shortcut to evaluate all the code in the editor
 
