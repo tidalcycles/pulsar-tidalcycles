@@ -1,3 +1,6 @@
+## 3.13.0
+* OSC eval: eval your code through OSC messages.
+
 ## 3.12.0
 * Show atom error notifications by default. Should help troubleshooting. Could be disabled in configuration.
 
