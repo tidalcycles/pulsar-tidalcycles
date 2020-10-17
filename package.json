@@ -14,7 +14,9 @@
     ]
   },
   "dependencies": {
-    "atom-space-pen-views": "^2.0.3"
+    "atom-space-pen-views": "^2.0.3",
+    "osc-min": "^1.1.1",
+    "dgram": "^1.0.1"
   },
   "repository": "https://github.com/tidalcycles/atom-tidalcycles",
   "license": "GPL-3.0",
