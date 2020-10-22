@@ -81,13 +81,17 @@ The atom plugin ist listenting on this ip address for incoming osc messages.
 * Default Ip: 127.0.0.1
 
 ### Osc Eval Address
-The atom plugin is filtering incoming osc messages with this specified address. 
+The atom plugin is filtering incoming osc messages with this specified address.
 * Default address: /atom/eval
 
 Three values are considered:
 1. line
 2. multi_line
 3. whole_editor
+
+### Sound Browser
+To make the sound browser at the first tidal evaluation, add your paths to the `Sound Browser Folders` in the plugin configuration, separed by commas.\
+Restart atom to apply changes.
 
 ### Other configurations
   * **Show error notifications**: show atom notifications on error  
