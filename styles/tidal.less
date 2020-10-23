@@ -4,6 +4,8 @@
 // for a full listing of what's available.
 @import "ui-variables";
 
+@soundbrowser-icon-font: 'Octicons Regular';
+
 atom-text-editor.editor .line {
   transition:  background-color .8s ease-out;
   -webkit-transition: background-color .8s ease-out;
@@ -49,4 +51,68 @@ atom-pane div.tidalcycles.console {
   .error{
     color: @text-color-error;
   }
+}
+
+.atom-sound-browser {
+  padding-left: 8px;
+  padding-top: 5px;
+
+  ul {
+    padding-inline-start: 20px;
+  }
+
+  li {
+    list-style-type: none;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+    span.icon {
+      margin-left: 2px;
+
+      &-stop:before {
+        font-family: @soundbrowser-icon-font;
+        content: '\2588';
+        font-size: 9px;
+        padding-top: 4px;
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
+
+  li:hover {
+    background-color: #292829;
+
+    span.icon {
+      margin-left: 2px;
+
+      &-play:before {
+        font-family: @soundbrowser-icon-font;
+        content: '\25B6';
+        position: absolute;
+        right: 4px;
+
+      }
+    }
+  }
+
+  li.icon {
+
+    &-open:before {
+      font-family: @soundbrowser-icon-font;
+      content: '\f0A3';
+    }
+
+    &-close:before {
+      font-family: @soundbrowser-icon-font;
+      content: '\f078';
+      margin-right: 7px;
+    }
+
+    &-speaker:before {
+      font-family: @soundbrowser-icon-font;
+      content: '\f077';
+    }
+  }
+
 }
