@@ -69,11 +69,9 @@ atom-pane div.tidalcycles.console {
     span.icon {
       margin-left: 2px;
 
-      &-stop:before {
+      &-speaker:before {
         font-family: @soundbrowser-icon-font;
-        content: '\2588';
-        font-size: 9px;
-        padding-top: 4px;
+        content: '\f077';
         position: absolute;
         right: 0;
       }
@@ -82,18 +80,6 @@ atom-pane div.tidalcycles.console {
 
   li:hover {
     background-color: #292829;
-
-    span.icon {
-      margin-left: 2px;
-
-      &-play:before {
-        font-family: @soundbrowser-icon-font;
-        content: '\25B6';
-        position: absolute;
-        right: 4px;
-
-      }
-    }
   }
 
   li.icon {
@@ -107,11 +93,6 @@ atom-pane div.tidalcycles.console {
       font-family: @soundbrowser-icon-font;
       content: '\f078';
       margin-right: 7px;
-    }
-
-    &-speaker:before {
-      font-family: @soundbrowser-icon-font;
-      content: '\f077';
     }
   }
 
