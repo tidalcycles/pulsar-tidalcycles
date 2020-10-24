@@ -1,3 +1,6 @@
+## 3.14.1
+* Improve sound browser UI
+
 ## 3.14.0
 * Introduce sound browser.
 
