@@ -70,24 +70,28 @@ etc...
 * *%ts*: current timestamp (unix format, seconds)
 * *%diff*: character comparison difference between last two evaluations
 
-### Osc Eval Port
-The atom plugin is listening on this specified port for incoming osc messages.
+### Osc Eval
+It's possibile to evaluate tidal code from OSC messages.
 
+For the first argument three values are considered:
+1. line (evaluate single line)
+2. multi_line (evaluate code block)
+3. whole_editor (evaluate all the editor)
+
+A second, optional parameter is supported, if valued, the cursor will be moved on the row indicated by the parameter (first row is 0, second row is 1 and so on...) 
+
+#### Port
+The atom plugin is listening on this specified port for incoming osc messages.
 * Default Port: 3333
 
-### Osc Eval Ip
+#### Ip
 The atom plugin ist listenting on this ip address for incoming osc messages.
 
 * Default Ip: 127.0.0.1
 
-### Osc Eval Address
+#### Address
 The atom plugin is filtering incoming osc messages with this specified address.
 * Default address: /atom/eval
-
-Three values are considered:
-1. line
-2. multi_line
-3. whole_editor
 
 ### Sound Browser
 To make the sound browser at the first tidal evaluation, add your paths to the `Sound Browser Folders` in the plugin configuration, separed by commas.\
