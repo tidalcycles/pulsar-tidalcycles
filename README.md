@@ -78,7 +78,7 @@ For the first argument three values are considered:
 2. multi_line (evaluate code block)
 3. whole_editor (evaluate all the editor)
 
-A second, optional parameter is supported, if valued, the cursor will be moved on the row indicated by the parameter (first row is 0, second row is 1 and so on...) 
+A second, optional parameter is supported, if valued, the cursor will be moved on the row indicated by the parameter.
 
 #### Port
 The atom plugin is listening on this specified port for incoming osc messages.
