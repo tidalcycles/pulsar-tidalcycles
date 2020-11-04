@@ -73,13 +73,6 @@ etc...
 ### Osc Eval
 It's possibile to evaluate tidal code from OSC messages.
 
-For the first argument three values are considered:
-1. line (evaluate single line)
-2. multi_line (evaluate code block)
-3. whole_editor (evaluate all the editor)
-
-A second, optional parameter is supported, if valued, the cursor will be moved on the row indicated by the parameter.
-
 #### Port
 The atom plugin is listening on this specified port for incoming osc messages.
 * Default Port: 3333
@@ -92,6 +85,17 @@ The atom plugin ist listenting on this ip address for incoming osc messages.
 #### Address
 The atom plugin is filtering incoming osc messages with this specified address.
 * Default address: /atom/eval
+
+#### Arguments
+
+##### Type
+Mandatory `type` argument to specify what kind of evaluation is requested:
+1. line (evaluate single line)
+2. multi_line (evaluate code block)
+3. whole_editor (evaluate all the editor)
+
+##### Row / Column
+`row` and `column` parameters can be specified to move the cursor on that position before the evaluation.
 
 ### Sound Browser
 To make the sound browser at the first tidal evaluation, add your paths to the `Sound Browser Folders` in the plugin configuration, separed by commas.\
