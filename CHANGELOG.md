@@ -1,3 +1,8 @@
+## 3.15.0
+* **BREAKING CHANGE**: in OSC eval now messages args have key-value structure (like SuperDirt), that interface is well explained in [README](README.md)
+* Show sample original file name in sound browser.
+* Fix: escape `#` in samples file name in sound browser
+
 ## 3.14.1
 * Improve sound browser UI
 
