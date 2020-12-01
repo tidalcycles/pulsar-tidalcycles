@@ -1,7 +1,7 @@
 {
   "name": "tidalcycles",
   "main": "./lib/tidalcycles",
-  "version": "3.14.1",
+  "version": "3.15.0",
   "description": "Atom package for TidalCycles, a language for live coding pattern.",
   "activationCommands": {
     "atom-text-editor": [
