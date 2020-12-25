@@ -122,6 +122,10 @@ Solutions:
 
 Note: there's a fix coming in GHC version 8.12
 
+### Could not find module `Sound.Tidal.Context`
+The `BootTidal.hs` file is loaded correctly, but tidal is not installed. Install it before following the official guide: \
+https://tidalcycles.org/Installation
+
 ## Contributing
 
 If you'd like to contribute to this package, here are some guidelines:
