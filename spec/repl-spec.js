@@ -40,4 +40,17 @@ describe('repl', () => {
       expect(repl.tidalSendLine.calls[1].args[0]).toBe('unmute 3')
     })
   })
+
+  describe('toggle muteAll', () => {
+    it('should toggling muteAll and unmuteAll', () => {
+      spyOn(repl, 'tidalSendLine')
+
+      repl.toggleMuteAll()
+      repl.toggleMuteAll()
+
+      expect(repl.tidalSendLine.callCount).toBe(2)
+      expect(repl.tidalSendLine.calls[0].args[0]).toBe('muteAll')
+      expect(repl.tidalSendLine.calls[1].args[0]).toBe('unmuteAll')
+    })
+  })
 })
