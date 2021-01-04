@@ -20,22 +20,24 @@ describe('repl', () => {
   })
 
   describe('toggle mute', () => {
-    it('should mute a connection not already muted', () => {
-      spyOn(repl, 'tidalSendLine')
-
-      repl.toggleMute('3')
-
-      expect(repl.eval.callCount).toBe(1)
-      expect(repl.eval.calls[0].args[1]).toBe('mute 3')
-    })
-
     it('should map connection 0 as 10', () => {
       spyOn(repl, 'tidalSendLine')
 
       repl.toggleMute('0')
 
-      expect(repl.eval.callCount).toBe(1)
-      expect(repl.eval.calls[0].args[1]).toBe('mute 10')
+      expect(repl.tidalSendLine.callCount).toBe(1)
+      expect(repl.tidalSendLine.calls[0].args[0]).toBe('mute 10')
+    })
+
+    it('should unmute a connection already muted', () => {
+      spyOn(repl, 'tidalSendLine')
+
+      repl.toggleMute('3')
+      repl.toggleMute('3')
+
+      expect(repl.tidalSendLine.callCount).toBe(2)
+      expect(repl.tidalSendLine.calls[0].args[0]).toBe('mute 3')
+      expect(repl.tidalSendLine.calls[1].args[0]).toBe('unmute 3')
     })
   })
 })
