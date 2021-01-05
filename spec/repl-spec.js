@@ -1,7 +1,7 @@
 const REPL = require('../lib/repl.js')
 
 describe('repl', () => {
-  let consoleView = { logStdout: () => {} }
+  let consoleView = { logStdout: () => {}, logMutes: () => {} }
   let repl = new REPL(consoleView, {}, { choosePath() { return 'lib/BootTidal.hs'} })
 
   beforeEach(() => {
