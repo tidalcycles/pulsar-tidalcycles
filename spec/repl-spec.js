@@ -45,8 +45,8 @@ describe('repl', () => {
     it('should toggling muteAll and unmuteAll', () => {
       spyOn(repl, 'tidalSendLine')
 
-      repl.toggleMuteAll()
-      repl.toggleMuteAll()
+      repl.toggleMute('all')
+      repl.toggleMute('all')
 
       expect(repl.tidalSendLine.callCount).toBe(2)
       expect(repl.tidalSendLine.calls[0].args[0]).toBe('muteAll')
