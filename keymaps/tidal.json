@@ -10,6 +10,17 @@
     "ctrl-.": "tidalcycles:hush",
     "cmd-.": "tidalcycles:hush",
     "shift-cmd-h": "tidalcycles:hush",
-    "shift-ctrl-h": "tidalcycles:hush"
+    "shift-ctrl-h": "tidalcycles:hush",
+    "ctrl-1": "tidalcycles:toggle-mute",
+    "ctrl-2": "tidalcycles:toggle-mute",
+    "ctrl-3": "tidalcycles:toggle-mute",
+    "ctrl-4": "tidalcycles:toggle-mute",
+    "ctrl-5": "tidalcycles:toggle-mute",
+    "ctrl-6": "tidalcycles:toggle-mute",
+    "ctrl-7": "tidalcycles:toggle-mute",
+    "ctrl-8": "tidalcycles:toggle-mute",
+    "ctrl-9": "tidalcycles:toggle-mute",
+    "ctrl-0": "tidalcycles:toggle-mute",
+    "ctrl-shift-.": "tidalcycles:toggle-muteall"
   }
 }
