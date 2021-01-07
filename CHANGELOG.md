@@ -1,3 +1,7 @@
+## 3.16.0
+* Disable OSC eval server by default, could by enabled with configuration.
+* Toggle mute shortcuts with `CTRL-<number>` and toggle mute all with `CTRL-SHIFT-.`
+
 ## 3.15.0
 * **BREAKING CHANGE**: in OSC eval now messages args have key-value structure (like SuperDirt), that interface is well explained in [README](README.md)
 * Show sample original file name in sound browser.
