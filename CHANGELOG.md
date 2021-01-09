@@ -1,3 +1,6 @@
+## 3.16.1
+* Improves `mutes` visualization on console
+
 ## 3.16.0
 * Disable OSC eval server by default, could by enabled with configuration.
 * Toggle mute shortcuts with `CTRL-<number>` and toggle mute all with `CTRL-SHIFT-.`
