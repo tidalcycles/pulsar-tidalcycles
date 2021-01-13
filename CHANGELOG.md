@@ -1,3 +1,6 @@
+## 3.16.2
+* Fallback `BootTidal.hs` loading for paths containing whitespaces
+
 ## 3.16.1
 * Improves `mutes` visualization on console
 
