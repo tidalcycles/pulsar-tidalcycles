@@ -1,7 +1,5 @@
 const BootTidal = require('../lib/boot-tidal')
-const Ghc = require('../lib/ghc')
 const fs = require('fs')
-const child_process = require('child_process')
 const ghc = { tidalDataDir() {} }
 
 describe('boot-tidal', () => {
@@ -50,5 +48,19 @@ describe('boot-tidal', () => {
       expect(bootTidal.choosePath()).toContain('/lib/BootTidal.hs')
     })
 
+  })
+
+  describe('blocks', () => {
+    it('should extract code blocks from BootTidal file', () => {
+      bootTidal.choosePath = () => 'spec/TestBootTidal.hs'
+
+      let blocks = bootTidal.blocks()
+
+      expect(blocks.length).toEqual(4)
+      expect(blocks[0]).toEqual(':set -XOverloadedStrings')
+      expect(blocks[1]).toEqual(':set prompt ""')
+      expect(blocks[2]).toContain('import')
+      expect(blocks[3]).toContain('let p = ')
+    })
   })
 })
