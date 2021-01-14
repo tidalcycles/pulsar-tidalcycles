@@ -1,3 +1,7 @@
+## 3.16.3
+* Fix a `tidalcycles:boot` bug
+* Improve some errors visualization
+
 ## 3.16.2
 * Fallback `BootTidal.hs` loading for paths containing whitespaces
 
