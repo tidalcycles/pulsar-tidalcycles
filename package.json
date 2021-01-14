@@ -14,7 +14,6 @@
     ]
   },
   "dependencies": {
-    "dgram": "^1.0.1",
     "directory-tree": "^2.2.5",
     "osc-min": "^1.1.1"
   },
