@@ -2,11 +2,10 @@ const child_process = require('child_process')
 const fs = require('fs')
 const os = require('os')
 const Ghc = require('../lib/ghc')
-const Ghci = require('../lib/ghci')
 
 describe('ghc', () => {
 
-  let ghc = new Ghc({ logStdout: () => {} })
+  let ghc = new Ghc({ logStdout: () => {}, logStderr: () => {} })
 
   beforeEach(() => {
     waitsForPromise(() => atom.packages.activate('tidalcycles'))
