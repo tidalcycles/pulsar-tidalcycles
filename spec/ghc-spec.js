@@ -111,18 +111,8 @@ describe('ghc', () => {
       expect(ghc.tidalDataDir()).toBe('no-path-in-this-output')
     })
 
-    it(`should return empty string if an error occurr`, () => {
-      spyOn(child_process, 'execSync').andCallFake(() => {
-        throw Error("error")
-      })
-
-      ghc.init()
-
-      expect(ghc.tidalDataDir()).toBe('')
-    })
-
     it(`should wrap ghc-pkg in double quotes for default interpreter to handle whitespaces in path`, () => {
-      spyOn(child_process, 'execSync')
+      spyOn(child_process, 'execSync').andReturn('')
       atom.config.set('tidalcycles.interpreter', 'default')
       atom.config.set('tidalcycles.ghciPath', '/path with whitespace')
 
@@ -133,7 +123,7 @@ describe('ghc', () => {
     })
 
     it(`should not wrap ghc-pkg in double quotes for stack interpreter`, () => {
-      spyOn(child_process, 'execSync')
+      spyOn(child_process, 'execSync').andReturn('')
       atom.config.set('tidalcycles.interpreter', 'stack')
 
       ghc.init()
@@ -143,7 +133,7 @@ describe('ghc', () => {
     })
 
     it(`should not wrap ghc-pkg in double quotes for nix interpreter`, () => {
-      spyOn(child_process, 'execSync')
+      spyOn(child_process, 'execSync').andReturn('')
       atom.config.set('tidalcycles.interpreter', 'nix')
 
       ghc.init()
