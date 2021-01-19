@@ -48,6 +48,20 @@ describe('boot-tidal', () => {
       expect(bootTidal.choosePath()).toContain('/lib/BootTidal.hs')
     })
 
+    it('should choose default boot file when no custom provided, no file in current directory and tidalDataDir throws error', () => {
+      spyOn(fs, 'existsSync').andCallFake(path => {
+        switch (path) {
+          case '/unexistent/path': return false;
+          default: return false;
+        }
+      });
+      spyOn(ghc, 'tidalDataDir').andCallFake(() => {
+        throw 'generic error'
+      })
+
+      expect(bootTidal.choosePath()).toContain('/lib/BootTidal.hs')
+    })
+
   })
 
   describe('blocks', () => {
