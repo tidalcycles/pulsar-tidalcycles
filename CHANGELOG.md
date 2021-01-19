@@ -1,3 +1,6 @@
+## 3.16.5
+* Avoid throwing an error that's not an error
+
 ## 3.16.3
 * Fix a `tidalcycles:boot` bug
 * Improve some errors visualization
