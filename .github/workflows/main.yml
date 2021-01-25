@@ -15,16 +15,22 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  Test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        channel: [stable, beta]
+    runs-on: ${{ matrix.os }}
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Test
-        run: curl -s https://raw.githubusercontent.com/atom/ci/master/build-package.sh | sh
+    - uses: actions/checkout@v2
+    - uses: UziTech/action-setup-atom@v1
+      with:
+        channel: ${{ matrix.channel }}
+    - name: Atom version
+      run: atom -v
+    - name: APM version
+      run: apm -v
+    - name: Install dependencies
+      run: apm ci
+    - name: Run tests 🧪
+      run: atom --test spec
