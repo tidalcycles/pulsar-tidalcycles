@@ -1,6 +1,6 @@
 # TidalCycles plugin for Atom
 
-![test](https://github.com/tidalcycles/atom-tidalcycles/workflows/main.yml/badge.svg)
+![CI](https://github.com/tidalcycles/atom-tidalcycles/workflows/CI/badge.svg)
 
 [TidalCycles](https://tidalcycles.org) is a live-coding pattern language
 
