@@ -1,5 +1,6 @@
 # TidalCycles plugin for Atom
-[![Build Status](https://travis-ci.org/tidalcycles/atom-tidalcycles.svg?branch=master)](https://travis-ci.org/tidalcycles/atom-tidalcycles)
+
+![CI](https://github.com/tidalcycles/atom-tidalcycles/workflows/CI/badge.svg)
 
 [TidalCycles](https://tidalcycles.org) is a live-coding pattern language
 
