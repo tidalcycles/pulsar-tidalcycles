@@ -209,4 +209,22 @@ describe('ghc', () => {
     })
   })
 
+  describe('tidal package version', () => {
+    it(`should return tidal version string`, () => {
+      spyOn(child_process, 'execSync').andReturn('tidal-<version>')
+
+      let versionString = ghc.tidalPackageVersion()
+
+      expect(versionString).toBe('tidal-<version>')
+    })
+
+    it(`should return undefined if ghc-pkg returns error`, () => {
+      spyOn(child_process, 'execSync').andCallFake(() => { throw 'generic error' })
+
+      let versionString = ghc.tidalPackageVersion()
+
+      expect(versionString).toBe(undefined)
+    })
+  })
+
 })
