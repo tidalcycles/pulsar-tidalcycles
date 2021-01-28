@@ -85,30 +85,13 @@ describe('ghc', () => {
     })
   })
 
-  describe('tidal data dir', () => {
-    it('should take data-dir path from ghc-pkg output wrapped in double quotes for default interpreter', () => {
-      spyOn(child_process, 'execSync').andReturn('data-dir: /some/path/tidal\n')
+  describe('ghc-pkg command', () => {
+    it('should execute ghc-pkg command and trim the result', () => {
+      spyOn(child_process, 'execSync').andReturn(' command result \n')
 
-      ghc.init()
-      let tidalDataDir = ghc.tidalDataDir()
+      let commandResult = ghc.pkg('command definition')
 
-      expect(tidalDataDir).toBe('/some/path/tidal')
-    })
-
-    it('should handle spaces in returning path', () => {
-      spyOn(child_process, 'execSync').andReturn('data-dir: /some/pa th/tidal\n')
-
-      ghc.init()
-
-      expect(ghc.tidalDataDir()).toBe('/some/pa th/tidal')
-    })
-
-    it(`should return what it gets when there's no path in ghc-pkg path`, () => {
-      spyOn(child_process, 'execSync').andReturn('no-path-in-this-output\n')
-
-      ghc.init()
-
-      expect(ghc.tidalDataDir()).toBe('no-path-in-this-output')
+      expect(commandResult).toBe('command result')
     })
 
     it(`should wrap ghc-pkg in double quotes for default interpreter to handle whitespaces in path`, () => {
@@ -117,9 +100,9 @@ describe('ghc', () => {
       atom.config.set('tidalcycles.ghciPath', '/path with whitespace')
 
       ghc.init()
-      ghc.tidalDataDir()
+      ghc.pkg('command arguments')
 
-      expect(child_process.execSync.calls[0].args[0]).toBe('"/path with whitespace/ghc-pkg" field tidal data-dir')
+      expect(child_process.execSync.calls[0].args[0]).toBe('"/path with whitespace/ghc-pkg" command arguments')
     })
 
     it(`should not wrap ghc-pkg in double quotes for stack interpreter`, () => {
@@ -127,9 +110,9 @@ describe('ghc', () => {
       atom.config.set('tidalcycles.interpreter', 'stack')
 
       ghc.init()
-      ghc.tidalDataDir()
+      ghc.pkg('command arguments')
 
-      expect(child_process.execSync.calls[0].args[0]).toBe('stack exec --package tidal ghc-pkg field tidal data-dir')
+      expect(child_process.execSync.calls[0].args[0]).toBe('stack exec --package tidal ghc-pkg command arguments')
     })
 
     it(`should not wrap ghc-pkg in double quotes for nix interpreter`, () => {
@@ -137,9 +120,27 @@ describe('ghc', () => {
       atom.config.set('tidalcycles.interpreter', 'nix')
 
       ghc.init()
+      ghc.pkg('command arguments')
+
+      expect(child_process.execSync.calls[0].args[0]).toBe('nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run "ghc-pkg command arguments"')
+    })
+  })
+
+  describe('tidal data dir', () => {
+    it('should handle spaces in returning path', () => {
+      spyOn(ghc, 'pkg').andReturn('data-dir: /some/pa th/tidal\n')
+
       ghc.tidalDataDir()
 
-      expect(child_process.execSync.calls[0].args[0]).toBe('nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run "ghc-pkg field tidal data-dir"')
+      expect(ghc.tidalDataDir()).toBe('/some/pa th/tidal')
+    })
+
+    it(`should return what it gets when there's no path in ghc-pkg path`, () => {
+      spyOn(ghc, 'pkg').andReturn('no-path-in-this-output\n')
+
+      ghc.tidalDataDir()
+
+      expect(ghc.tidalDataDir()).toBe('no-path-in-this-output')
     })
   })
 
@@ -211,7 +212,7 @@ describe('ghc', () => {
 
   describe('tidal package version', () => {
     it(`should return tidal version string`, () => {
-      spyOn(child_process, 'execSync').andReturn('tidal-<version>')
+      spyOn(ghc, 'pkg').andReturn('tidal-<version>\n')
 
       let versionString = ghc.tidalPackageVersion()
 
@@ -219,7 +220,7 @@ describe('ghc', () => {
     })
 
     it(`should return undefined if ghc-pkg returns error`, () => {
-      spyOn(child_process, 'execSync').andCallFake(() => { throw 'generic error' })
+      spyOn(ghc, 'pkg').andCallFake(() => { throw 'generic error' })
 
       let versionString = ghc.tidalPackageVersion()
 
