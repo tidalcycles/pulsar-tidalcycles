@@ -3,7 +3,8 @@ const REPL = require('../lib/repl.js')
 describe('repl', () => {
   let consoleView = { logStdout: () => {}, logMutes: () => {} }
   let bootTidal = { choosePath: () => '', blocks: () => [] }
-  let repl = new REPL(consoleView, {}, bootTidal)
+  let ghc = { tidalPackageVersion: () => undefined }
+  let repl = new REPL(consoleView, ghc, bootTidal)
 
   beforeEach(() => {
     waitsForPromise(() => atom.packages.activate('tidalcycles'))
