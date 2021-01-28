@@ -17,7 +17,7 @@ describe('repl', () => {
 
       repl.initTidal()
 
-      expect(repl.tidalSendLine.callCount).toBe(1)
+      expect(repl.tidalSendLine.callCount).toBe(2)
       expect(repl.tidalSendLine.calls[0].args[0]).toBe(':script lib/BootTidal.hs')
     })
 
@@ -29,7 +29,7 @@ describe('repl', () => {
 
       repl.initTidal()
 
-      expect(repl.tidalSendLine.callCount).toBe(1)
+      expect(repl.tidalSendLine.callCount).toBe(2)
       expect(repl.tidalSendLine.calls[0].args[0]).toBe(':set im a single expression')
       expect(repl.tidalSendExpression.callCount).toBe(1)
       expect(repl.tidalSendExpression.calls[0].args[0]).toBe('im a standard\ncode block')
