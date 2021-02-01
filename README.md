@@ -13,7 +13,8 @@ Then, you can:
   * `(cmd/ctrl)+enter` to evaluate multiple-lines or selection
   * `ctrl+alt+shift+enter` to evaluate the whole editor
   * `ctrl+<number>` to mute/unmute the connection <number>
-  * `ctrl+shift+.` to mute/unmute all
+  * `ctrl+alt+<number>` to mute/unmute the connection 1<number>
+  * `ctrl+0` to unmute all
 
 To send patterns to [SuperDirt](https://github.com/musikinformatik/SuperDirt), use `d1` .. `d9`, e.g.:
 ```
