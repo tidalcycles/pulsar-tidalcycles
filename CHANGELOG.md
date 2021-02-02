@@ -1,49 +1,54 @@
-## 3.16.5
+## v3.16.6
+* Change unmuteAll keybind to `ctrl-0`
+* Add toggle mute commands for connections from 10 to 11 with keybing `ctrl-shift-<second digit>`
+* Console log tidal version on startup
+
+## v3.16.5
 * Avoid throwing an error that's not an error
 
-## 3.16.3
+## v3.16.3
 * Fix a `tidalcycles:boot` bug
 * Improve some errors visualization
 
-## 3.16.2
+## v3.16.2
 * Fallback `BootTidal.hs` loading for paths containing whitespaces
 
-## 3.16.1
+## v3.16.1
 * Improves `mutes` visualization on console
 
-## 3.16.0
+## v3.16.0
 * Disable OSC eval server by default, could by enabled with configuration.
 * Toggle mute shortcuts with `CTRL-<number>` and toggle mute all with `CTRL-SHIFT-.`
 
-## 3.15.0
+## v3.15.0
 * **BREAKING CHANGE**: in OSC eval now messages args have key-value structure (like SuperDirt), that interface is well explained in [README](README.md)
 * Show sample original file name in sound browser.
 * Fix: escape `#` in samples file name in sound browser
 
-## 3.14.1
+## v3.14.1
 * Improve sound browser UI
 
-## 3.14.0
+## v3.14.0
 * Introduce sound browser.
 
-## 3.13.0
+## v3.13.0
 * OSC eval: eval your code through OSC messages.
 
-## 3.12.0
+## v3.12.0
 * Show atom error notifications by default. Should help troubleshooting. Could be disabled in configuration.
 
-## 3.11.0
+## v3.11.0
 * Add `ctrl-alt-shift-enter` shortcut to evaluate all the code in the editor
 
-## 3.10.1
+## v3.10.1
 * Fix `#` syntax highlight #109
 
-## 3.10.0
+## v3.10.0
 * Add `ctrl-.` shortcut for hush command #102
 * Add Console prompt customization, including some placeholders (described in [README](README.md))
 * Removed obsolete `filterPromptFromLogMessages` configuration, with console prompt customization, the prompt log message is always filtered.
 
-## 3.9.0
+## v3.9.0
 * Add interpreter configuration, to launch TidalCycles with *stack* or *nix*
 * In BootTidal.hs moved prompt-cont line to the end of the file to avoid problems with old version of GHC
 
