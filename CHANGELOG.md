@@ -1,3 +1,6 @@
+## v3.16.7
+* Fix osc eval
+
 ## v3.16.6
 * Change unmuteAll keybind to `ctrl-0`
 * Add toggle mute commands for connections from 10 to 11 with keybing `ctrl-shift-<second digit>`
