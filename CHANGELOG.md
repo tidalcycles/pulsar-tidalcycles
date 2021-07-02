@@ -1,3 +1,9 @@
+# Changelog
+
+## v3.16.8
+* Fix syntax highlighting for `d10`, `d11`, `d12`... #154
+* Introduce new `tidal-listener` interpreter. #157
+
 ## v3.16.7
 * Fix osc eval
 
