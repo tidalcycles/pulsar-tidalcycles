@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.16.9
+* Add code block indicators on editor in preparation to listener interface.
+
 ## v3.16.8
 * Fix syntax highlighting for `d10`, `d11`, `d12`... #154
 * Introduce new `tidal-listener` interpreter. #157
