@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.16.10
+* Launch SuperDirt automatically inside Atom
+
 ## v3.16.9
 * Add code block indicators on editor in preparation to listener interface.
 

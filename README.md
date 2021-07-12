@@ -4,8 +4,7 @@
 
 [TidalCycles](https://tidalcycles.org) is a live-coding pattern language
 
-For installation instructions, please visit:
-  https://tidalcycles.org/index.php/Installation
+After TidalCycles installation (checkout [official documentation](https://tidalcycles.org/docs/) for details),
 
 Then, you can:
   * Open a `.tidal` file
@@ -43,6 +42,11 @@ The plugin will load the `BootTidal.hs` file according to this sequence:
   * if exists, the one in the current directory
   * if exists, the one in the current Tidal installation, given by the `ghc-pkg` binary configured with *Haskell Path*
   * the fallback choice is the one [included with the plugin](lib/BootTidal.hs)
+
+### SuperDirt
+By default, SuperDirt will be started automatically at the first tidal code evaluation.
+The plugin will use a `superdirt_startup.scp` if it's present into the current folder, otherwise it will use the [default startup command](./lib/superdirt_startup.scd).
+This feature can be disabled in configuration.
 
 ### Autocomplete
 You can turn on/off autocomplete with flag.
