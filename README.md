@@ -44,7 +44,7 @@ The plugin will load the `BootTidal.hs` file according to this sequence:
   * the fallback choice is the one [included with the plugin](lib/BootTidal.hs)
 
 ### SuperDirt
-By default, SuperDirt will be started automatically at the first tidal code evaluation.
+SuperDirt can be started automatically at the first tidal code evaluation.
 The plugin will use a `superdirt_startup.scp` if it's present into the current folder, otherwise it will use the [default startup command](./lib/superdirt_startup.scd).
 This feature can be disabled in configuration.
 

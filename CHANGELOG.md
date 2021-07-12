@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.16.11
+* Set superdirt autostart to false by default
+
 ## v3.16.10
 * Launch SuperDirt automatically inside Atom
 
