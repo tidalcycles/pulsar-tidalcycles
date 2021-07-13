@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.16.12
+* Introduced first version of code highlight with tidal-listener
+
 ## v3.16.11
 * Set superdirt autostart to false by default
 
