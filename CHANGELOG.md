@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.16.13
+* Improve tidal-listener highlight visualization
+
 ## v3.16.12
 * Introduced first version of code highlight with tidal-listener
 
