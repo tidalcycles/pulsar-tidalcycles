@@ -1,9 +1,14 @@
-const REPL = require('../lib/repl.js')
+const Repl = require('../lib/repl.js')
 
 describe('repl', () => {
-  let consoleView = { logStdout: () => {}, logMutes: () => {} }
+  let consoleView = {
+    logStdout: () => {},
+    logMutes: () => {},
+    appendLog: () => {},
+    flushLog: () => {}
+  }
   let bootTidal = { choosePath: () => '', blocks: () => [] }
-  let repl = new REPL(consoleView, {}, bootTidal)
+  let repl = new Repl(consoleView, {}, bootTidal)
 
   beforeEach(() => {
     waitsForPromise(() => atom.packages.activate('tidalcycles'))
