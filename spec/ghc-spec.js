@@ -5,7 +5,7 @@ const Ghc = require('../lib/ghc')
 
 describe('ghc', () => {
 
-  let ghc = new Ghc({ logStdout: () => {}, logStderr: () => {} })
+  let ghc = new Ghc({ logStdout: () => {}, logStderr: () => {}, appendLog: () => {}, flushLog: () => {} })
 
   beforeEach(() => {
     waitsForPromise(() => atom.packages.activate('tidalcycles'))

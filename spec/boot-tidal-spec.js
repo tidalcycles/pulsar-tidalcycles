@@ -3,7 +3,7 @@ const fs = require('fs')
 const ghc = { tidalDataDir() {} }
 
 describe('boot-tidal', () => {
-  let bootTidal = new BootTidal(ghc, [{ path: '/current/directory' }])
+  let bootTidal = new BootTidal(ghc, [{ path: '/current/directory' }], { appendLog: () => {}})
 
   beforeEach(() => {
     waitsForPromise(() => atom.packages.activate('tidalcycles'))
