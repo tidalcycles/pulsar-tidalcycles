@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.16.14
+* Handle multi pattern highlight visualization on tidal listener
+* Add detailed logs on ghc and BootTidal file loading
+
 ## v3.16.13
 * Improve tidal-listener highlight visualization
 
