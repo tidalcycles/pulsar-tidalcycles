@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.16.15
+* Fix autocomplete issue with tidal-listener #171
+
 ## v3.16.14
 * Handle multi pattern highlight visualization on tidal listener
 * Add detailed logs on ghc and BootTidal file loading
