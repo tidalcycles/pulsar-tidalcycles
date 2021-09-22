@@ -17,7 +17,7 @@
     "directory-tree": "^2.2.5",
     "osc-min": "^1.1.1"
   },
-  "repository": "https://github.com/tidalcycles/atom-tidalcycles",
+  "repository": "git@github.com:tidalcycles/atom-tidalcycles.git",
   "license": "GPL-3.0",
   "engines": {
     "atom": ">=0.174.0 <2.0.0"
