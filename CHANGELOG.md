@@ -1,6 +1,6 @@
 # Changelog
 
-## v3.16.15
+## v3.16.17
 * Fix autocomplete issue with tidal-listener #171
 
 ## v3.16.14
