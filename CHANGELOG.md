@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.16.18
+* Support [pulsar](https://pulsar-edit.dev/)
+* Update `BootTidal.hs`
+
 ## v3.16.17
 * Fix autocomplete issue with tidal-listener #171
 
