@@ -6,8 +6,7 @@ import Sound.Tidal.Context
 import System.IO (hSetEncoding, stdout, utf8)
 hSetEncoding stdout utf8
 
--- total latency = oLatency + cFrameTimespan
-tidal <- startTidal (superdirtTarget {oLatency = 0.1, oAddress = "127.0.0.1", oPort = 57120}) (defaultConfig {cVerbose = True, cFrameTimespan = 1/20})
+tidal <- startTidal (superdirtTarget {oLatency = 0.05, oAddress = "127.0.0.1", oPort = 57120}) (defaultConfig {cVerbose = True, cFrameTimespan = 1/20})
 
 :{
 let only = (hush >>)
@@ -28,6 +27,7 @@ let only = (hush >>)
     nudgeAll = streamNudgeAll tidal
     all = streamAll tidal
     resetCycles = streamResetCycles tidal
+    setCycle = streamSetCycle tidal
     setcps = asap . cps
     getcps = streamGetcps tidal
     getnow = streamGetnow tidal
@@ -40,6 +40,7 @@ let only = (hush >>)
     jumpIn i t = transition tidal True (Sound.Tidal.Transition.jumpIn t) i
     jumpIn' i t = transition tidal True (Sound.Tidal.Transition.jumpIn' t) i
     jumpMod i t = transition tidal True (Sound.Tidal.Transition.jumpMod t) i
+    jumpMod' i t p = transition tidal True (Sound.Tidal.Transition.jumpMod' t p) i
     mortal i lifespan release = transition tidal True (Sound.Tidal.Transition.mortal lifespan release) i
     interpolate i = transition tidal True (Sound.Tidal.Transition.interpolate) i
     interpolateIn i t = transition tidal True (Sound.Tidal.Transition.interpolateIn t) i
@@ -77,3 +78,5 @@ let getState = streamGet tidal
 
 :set prompt "tidal> "
 :set prompt-cont ""
+
+default (Pattern String, Integer, Double)
