@@ -17,7 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
-    - uses: UziTech/action-setup-atom@v1
+    - uses: UziTech/action-setup-atom@v3
       with:
         channel: ${{ matrix.channel }}
     - name: Atom version
