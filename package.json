@@ -20,7 +20,7 @@
   "repository": "git@github.com:tidalcycles/atom-tidalcycles.git",
   "license": "GPL-3.0",
   "engines": {
-    "atom": ">=0.174.0 <2.0.0"
+    "atom": ">=1.0.0 <2.0.0"
   },
   "providedServices": {
     "autocomplete.provider": {
