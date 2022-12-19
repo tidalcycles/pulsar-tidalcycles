@@ -106,7 +106,8 @@ Mandatory `type` argument to specify what kind of evaluation is requested:
 `row` and `column` parameters can be specified to move the cursor on that position before the evaluation.
 
 ### Sound Browser
-To make the sound browser at the first tidal evaluation, add your paths to the `Sound Browser Folders` in the plugin configuration, separed by commas.\ For example, on macOS, the default SuperDirt samples are at `/Users/<yourUser>/Library/Application Support/SuperCollider/downloaded-quarks/Dirt-Samples/`
+To make the sound browser at the first tidal evaluation, add your paths to the `Sound Browser Folders` in the plugin configuration, separed by commas.\ For example, on macOS, the default SuperDirt samples are at \
+`/Users/<yourUser>/Library/Application Support/SuperCollider/downloaded-quarks/Dirt-Samples/` \
 Restart editor (Pulsar) to apply changes.
 
 ### Other configurations
