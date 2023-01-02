@@ -14,7 +14,7 @@
     ]
   },
   "dependencies": {
-    "directory-tree": "^2.2.5",
+    "directory-tree": "^3.5.1",
     "osc-min": "^1.1.1"
   },
   "repository": "git@github.com:tidalcycles/pulsar-tidalcycles.git",
