@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: download pulsar
-      run: wget "https://download.pulsar-edit.dev/?os=linux&type=linux_deb" -o pulsar.deb
+      run: curl -L "https://download.pulsar-edit.dev/?os=linux&type=linux_deb" --output pulsar.deb
     - name: install pulsar
       run: sudo dpkg -i pulsar.deb
     - name: run the headless pulsar tests
