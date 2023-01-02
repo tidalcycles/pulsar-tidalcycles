@@ -1,8 +1,8 @@
 # TidalCycles plugin for Pulsar
 
-![CI](https://github.com/tidalcycles/atom-tidalcycles/actions/workflows/ci.yml/badge.svg?branch=master)
+![CI](https://github.com/tidalcycles/pulsar-tidalcycles/actions/workflows/ci.yml/badge.svg?branch=master)
 
-[TidalCycles](https://tidalcycles.org) is a live-coding pattern language
+[TidalCycles](https://tidalcycles.org) is a language for live coding algorithmic patterns.
 
 After TidalCycles installation (checkout [official documentation](https://tidalcycles.org/docs/) for details),
 
@@ -92,7 +92,7 @@ The plugin is listening on this ip address for incoming osc messages:
 
 #### Address
 The plugin is filtering incoming osc messages with this specified address.
-* Default address: /atom/eval
+* Default address: /pulsar/eval
 
 #### Arguments
 
@@ -149,7 +149,8 @@ a beautifier package (we recommend `atom-beautify`) to format your changes with
 these settings.
 
 ### Specs
-
-Always run specs before PR.  
-Execute the `Window: Run Package Specs` command (`ctrl+shift+y`).  
-`0 failures` should be the result
+Always run specs before open a PR.
+To run them:
+```shell
+pulsar --test spec
+```
