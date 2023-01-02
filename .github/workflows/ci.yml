@@ -21,5 +21,7 @@ jobs:
       run: curl -L "https://download.pulsar-edit.dev/?os=linux&type=linux_deb" --output pulsar.deb
     - name: install pulsar
       run: sudo dpkg -i pulsar.deb
-    - name: run the headless pulsar tests
-      run: pulsar --test spec
+    - name: run the headless tests
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        run: pulsar --test spec
