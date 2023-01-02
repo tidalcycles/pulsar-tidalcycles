@@ -1,30 +1,21 @@
 name: CI
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-  workflow_dispatch:
+  - push
+  - pull_request
 
 jobs:
-  Test:
+  test:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        channel: [stable, beta]
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v2
-    - uses: UziTech/action-setup-atom@v3
+    - uses: actions/checkout@v3
+    - name: setup pulsar editor
+      uses: pulsar-edit/action-pulsar-dependency@v2
+    - name: run the headless pulsar tests
+      uses: GabrielBB/xvfb-action@v1
       with:
-        channel: ${{ matrix.channel }}
-    - name: Atom version
-      run: atom -v
-    - name: APM version
-      run: apm -v
-    - name: Install dependencies
-      run: apm ci
-    - name: Run tests 🧪
-      run: atom --test spec
+        run: yarn start --test spec
+        working-directory: ./pulsar
