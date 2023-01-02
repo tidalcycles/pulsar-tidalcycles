@@ -15,6 +15,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
+    - name: install prerequisites
+      run: sudo apt install -y libnotify4
     - name: download pulsar
       run: curl -L "https://download.pulsar-edit.dev/?os=linux&type=linux_deb" --output pulsar.deb
     - name: install pulsar
