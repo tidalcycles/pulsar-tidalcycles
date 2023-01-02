@@ -1,4 +1,4 @@
-# TidalCycles plugin for Atom
+# TidalCycles plugin for Pulsar
 
 ![CI](https://github.com/tidalcycles/atom-tidalcycles/actions/workflows/ci.yml/badge.svg?branch=master)
 
@@ -49,7 +49,7 @@ The plugin will use a `superdirt_startup.scp` if it's present into the current f
 This feature can be disabled in configuration.
 
 ### Autocomplete
-You can turn on/off autocomplete with flag.
+You can turn on/off autocomplete with this option.
 
 #### Documentation details with Hoogle
 With [hoogle](https://github.com/ndmitchell/hoogle/blob/master/docs/Install.md) the autocomplete experience will improve and official tidal documentation will be shown.
@@ -82,16 +82,16 @@ etc...
 It's possibile to evaluate tidal code from OSC messages.
 
 #### Port
-The atom plugin is listening on this specified port for incoming osc messages.
+The plugin is listening on this specified port for incoming osc messages:
 * Default Port: 3333
 
 #### Ip
-The atom plugin ist listenting on this ip address for incoming osc messages.
+The plugin is listening on this ip address for incoming osc messages:
 
 * Default Ip: 127.0.0.1
 
 #### Address
-The atom plugin is filtering incoming osc messages with this specified address.
+The plugin is filtering incoming osc messages with this specified address.
 * Default address: /atom/eval
 
 #### Arguments
@@ -106,11 +106,12 @@ Mandatory `type` argument to specify what kind of evaluation is requested:
 `row` and `column` parameters can be specified to move the cursor on that position before the evaluation.
 
 ### Sound Browser
-To make the sound browser at the first tidal evaluation, add your paths to the `Sound Browser Folders` in the plugin configuration, separed by commas.\
-Restart atom to apply changes.
+To make the sound browser at the first tidal evaluation, add your paths to the `Sound Browser Folders` in the plugin configuration, separed by commas.\ For example, on macOS, the default SuperDirt samples are at \
+`/Users/<yourUser>/Library/Application Support/SuperCollider/downloaded-quarks/Dirt-Samples/` \
+Restart editor (Pulsar) to apply changes.
 
 ### Other configurations
-  * **Show error notifications**: show atom notifications on error  
+  * **Show error notifications**: show editor notifications on error  
   * **Only Log Last Message**: shows only last log message on console
   * **Only Show Log When Errors**: show only errors from ghci
 
@@ -124,15 +125,18 @@ Solutions:
 * Upgrade GHC (to at least 8.6)
 
 ### '<path>' is not recognized as an internal or external command, operable program or batch file.
-The BootTidal.hs and ghci path cannot contains whitespace inside.
+The BootTidal.hs and ghci path cannot contain whitespace inside.
 Solutions:
-* put you scripts and the BootTidal.hs in a path that doesn't contain whitespaces.
+* put your scripts and the BootTidal.hs in a path that doesn't contain whitespaces.
 
-Note: there's a fix coming in GHC version 8.12
+Note: this is fixed in GHC version 8.12
 
 ### Could not find module `Sound.Tidal.Context`
-The `BootTidal.hs` file is loaded correctly, but tidal is not installed. Install it before following the official guide: \
-https://tidalcycles.org/Installation
+The `BootTidal.hs` file is loaded correctly, but tidal is not installed or did not load correctly. Try restarting your editor. To install tidal, follow the documentation for your platform: \
+[Documentation > Install Tidal](https://tidalcycles.org/docs/)
+
+### Variable not in scope
+This could mean that the BootTidal.hs file you are using has a value not supported by the version of tidal you have installed. You can find the variable in the error message in your BootTidal.hs and comment out that line (using double hyphens).
 
 ## Contributing
 
@@ -147,5 +151,5 @@ these settings.
 ### Specs
 
 Always run specs before PR.  
-On Atom, execute the `Window: Run Package Specs` command (`ctrl+shift+y`).  
+Execute the `Window: Run Package Specs` command (`ctrl+shift+y`).  
 `0 failures` should be the result
