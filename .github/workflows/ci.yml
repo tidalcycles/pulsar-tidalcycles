@@ -8,16 +8,16 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        # os: [ubuntu-latest, macos-latest]
+        # until pulsar-edit/action-pulsar-dependency does not support pulsar install (https://github.com/pulsar-edit/action-pulsar-dependency/issues/3)
+        # only test on linux
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
-    - name: setup pulsar editor
-      uses: pulsar-edit/action-pulsar-dependency@v2
-      with:
-        package-to-test: "tidalcycles"
+    - name: download pulsar
+      run: wget "https://download.pulsar-edit.dev/?os=linux&type=linux_deb" -o pulsar.deb
+    - name: install pulsar
+      run: sudo dpkg -i pulsar.deb
     - name: run the headless pulsar tests
-      uses: GabrielBB/xvfb-action@v1
-      with:
-        run: yarn start --test spec
-        working-directory: ./pulsar
+      run: pulsar --test spec
