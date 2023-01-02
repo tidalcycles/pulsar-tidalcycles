@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.16.39
+* Bump `dependency-tree` to 3.5.1
+
 ## v3.16.18
 * Support [pulsar](https://pulsar-edit.dev/)
 * Update `BootTidal.hs`
