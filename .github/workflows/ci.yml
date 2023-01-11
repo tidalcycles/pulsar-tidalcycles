@@ -8,19 +8,12 @@ jobs:
   test:
     strategy:
       matrix:
-        # os: [ubuntu-latest, macos-latest]
-        # until pulsar-edit/action-pulsar-dependency does not support pulsar install (https://github.com/pulsar-edit/action-pulsar-dependency/issues/3)
-        # only test on linux
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
-    - name: install prerequisites
-      run: sudo apt install -y libnotify4
-    - name: download pulsar
-      run: curl -L "https://download.pulsar-edit.dev/?os=linux&type=linux_deb" --output pulsar.deb
-    - name: install pulsar
-      run: sudo dpkg -i pulsar.deb
+    - name: setup pulsar editor
+      uses: pulsar-edit/action-pulsar-dependency@1c6f3188841fd065b11828929fe76f755e8aba90
     - name: run the headless tests
       uses: GabrielBB/xvfb-action@v1
       with:
