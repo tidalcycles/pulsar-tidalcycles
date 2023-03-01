@@ -1,5 +1,14 @@
 # Changelog
 
+## Unrelased
+* Rebranding from `atom` to `pulsar`
+* Configuration restructure. To adapt follow the instructions:
+  * Open the `config.cson` file (Menu -> `Edit -> Config...`)
+  * Cut the `tidalcycles:` block and paste it in a file somewhere
+  * Restart the editor
+  * Open the TidalCycles plugin configuration
+  * Configure it as it was before using the file previously saved
+
 ## v3.16.39
 * Bump `dependency-tree` to 3.5.1
 

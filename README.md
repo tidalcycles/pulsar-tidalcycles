@@ -28,7 +28,7 @@ You can choose between 3 Haskell interpreters:
 * Stack: ghci installed with stack
 * Nix: ghci installed with nix
 
-### Haskell Path
+### GHCI Path
 
 By default the plugin will use the `ghci` and `ghc-pkg` binaries in $PATH configuration.
 
@@ -44,6 +44,7 @@ The plugin will load the `BootTidal.hs` file according to this sequence:
   * the fallback choice is the one [included with the plugin](lib/BootTidal.hs)
 
 ### SuperDirt
+
 SuperDirt can be started automatically at the first tidal code evaluation.
 The plugin will use a `superdirt_startup.scp` if it's present into the current folder, otherwise it will use the [default startup command](./lib/superdirt_startup.scd).
 This feature can be disabled in configuration.
@@ -61,7 +62,10 @@ After installation you have to generate tidal documentation, in your terminal ru
 or\
 `stack hoogle -- generate tidal` (with stack)
 
-### Console Prompt
+### Console
+The console can be customized:
+
+#### Prompt
 Customize the console prompt with a string.
 Placeholders can be used, e.g.
 ```
@@ -73,13 +77,19 @@ eval #1>
 eval #2>
 etc...
 ```
-#### Placeholders
+##### Placeholders
 * *%ec*: eval count
 * *%ts*: current timestamp (unix format, seconds)
 * *%diff*: character comparison difference between last two evaluations
 
+#### Only Show Log When Errors
+Filter all the console log and show only errors
+
+#### Only Log Last Message
+Filter all the console old logs and show only the last one
+
 ### Osc Eval
-It's possibile to evaluate tidal code from OSC messages.
+It's possibile to evaluate tidal code with OSC messages.
 
 #### Port
 The plugin is listening on this specified port for incoming osc messages:
@@ -112,9 +122,6 @@ Restart editor (Pulsar) to apply changes.
 
 ### Other configurations
   * **Show error notifications**: show editor notifications on error  
-  * **Only Log Last Message**: shows only last log message on console
-  * **Only Show Log When Errors**: show only errors from ghci
-
 
 ## Troubleshooting
 
