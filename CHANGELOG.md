@@ -1,6 +1,6 @@
 # Changelog
 
-## Unrelased
+## v4.0.0
 * Rebranding from `atom` to `pulsar`
 * Configuration restructure. To adapt follow the instructions:
   * Open the `config.cson` file (Menu -> `Edit -> Config...`)
