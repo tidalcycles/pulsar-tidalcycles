@@ -106,7 +106,7 @@ Mandatory `type` argument to specify what kind of evaluation is requested:
 `row` and `column` parameters can be specified to move the cursor on that position before the evaluation.
 
 #### Search
-With the `search` parameter, you are able to to move the cursort to the first occurance that matches the search term.
+With the `search` parameter, you are able to to move the cursor to the first occurrence that matches the search term.
 
 ### Sound Browser
 To make the sound browser at the first tidal evaluation, add your paths to the `Sound Browser Folders` in the plugin configuration, separed by commas.\
