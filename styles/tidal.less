@@ -97,3 +97,52 @@ atom-pane div.tidalcycles.console {
   }
 
 }
+
+.atom-remote-control {
+  padding-left: 8px;
+  padding-top: 5px;
+}
+
+.flex-container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 100%;
+      margin: 20px;
+}
+
+.flex-item {
+  box-sizing: border-box;
+  flex: 1 0 calc(25% - 20px);
+  margin: 10px;
+  background-color: #2b2b2b !important;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  border: 5px solid #00ff89;
+  font-weight: bold;
+}
+
+.flex-item-disabled {
+  opacity: 0.4;
+}
+
+.tidalcycles-remote-control-headline {
+  font-family: 'BenguiatStd-Medium';
+  font-size: 46px;
+  text-align: center;
+  margin: 0 auto;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #ffffff, -1px 1px 0 #fff, 1px 1px 0 #fff !important;
+  color: black;
+}
+
+@media (max-width: 768px) {
+  .flex-item {
+    flex: 1 0 calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .flex-item {
+    flex: 1 0 calc(100% - 20px);
+  }
+}
