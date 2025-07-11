@@ -90,17 +90,17 @@ Filter all the console old logs and show only the last one
 
 ### Event Highlighting
 
-The event highlighting allows to visualize the active events within a mini notation pattern. This means, that only events within quotation marks will be considered. 
+The event highlighting allows to visualize the active events within a mini notation pattern. This means, that only events within quotation marks will be considered.
 
 #### TidalCycles configuration
 
 TidalCycles needs to be configured to send editor highlight events. This is usually done by modifying the `BootTidal.hs` file and adding an editor highlight target. Here is a working example:
 
 ```haskell
-let editorTarget = Target {oName = "editor", oAddress = "127.0.0.1", oPort = 6013, oLatency = 0.02, oSchedule = Pre BundleStamp, oWindow = Nothing, oHandshake = False, oBusPort = Nothing }
+let editorTarget = Target {oName = "editor", oAddress = "127.0.0.1", oPort = 6013, oLatency = 0.2, oSchedule = Pre BundleStamp, oWindow = Nothing, oHandshake = False, oBusPort = Nothing }
 let editorShape = OSCContext "/editor/highlights"
 
-tidal <- startStream (defaultConfig {cFrameTimespan = 1/50}) [(superdirtTarget {oLatency = 0.2}, [superdirtShape]), (editorTarget, [editorShape])]
+tidal <- startStream (defaultConfig {cFrameTimespan = 1/30, , cProcessAhead = (1/20)}) [(superdirtTarget {oLatency = 0.02}, [superdirtShape]), (editorTarget, [editorShape])]
 ```
 
 The path to the `BootTidal.hs` file can be found in the TidalCycles output console after TidalCycles has been booted in the editor.

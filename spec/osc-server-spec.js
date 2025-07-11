@@ -36,32 +36,51 @@ describe('OscServer', () => {
     })
 
     it('should start an osc server and receive a message of type bundle', done => {
-	let messages = [];
-	const expected = [{key1: 'value1'}, {key2: 'value2'}]
+
+        let messages = [];  
+
+        const ntpTime = [3944678400, 0];
+
+        const expectedTime = OscServer.fromNTPTime(ntpTime);
+
+        const expected = [ 
+            [
+                expectedTime,
+                { type: 'string', value: 'key1' },
+                { type: 'string', value: 'value1' }
+            ],
+            [
+              expectedTime,
+              { type: 'string', value: 'key2' },
+              { type: 'string', value: 'value2' }
+            ]
+        ]
 
         let listener = (message) => {
-	    	messages.push(OscServer.asDictionary(message));
-		if (messages.length === expected.length) {
-		   expect(messages).toEqual(expected);   
-               	   done();
-		}
+	    	messages.push(message);
+            if (messages.length === expected.length) {
+               expect(messages).toEqual(expected);   
+               done();
+            }
         }
 
         oscServer.register('/address', listener);
 
         const message = osc.toBuffer({ 
-		elements: [
-		  {
-		     address: "/address",
-		     args: ["key1", "value1"]
-		  },
-		  {
-		     address: "/address",
-		     args: ["key2", "value2"]
-		  }
-		],
-		oscType: 'bundle'
-	});
+            elements: [
+              {
+                 address: "/address",
+                 args: ["key1", "value1"]
+              },
+              {
+                 address: "/address",
+                 args: ["key2", "value2"]
+              }
+            ],
+            timetag: ntpTime,
+            oscType: 'bundle'
+        });
         dgram.createSocket('udp4').send(message, 0, message.byteLength, port, "127.0.0.1")
+
     })
 })
