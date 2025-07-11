@@ -90,7 +90,7 @@ Filter all the console old logs and show only the last one
 
 ### Event Highlighting
 
-The event highlighting allows to visualize the active events within a mini notation pattern. This means, that only events within quotation marks will be considered. 
+The event highlighting allows to visualize the active events within a mini notation pattern. This means, that only events within quotation marks will be considered.
 
 #### TidalCycles configuration
 
