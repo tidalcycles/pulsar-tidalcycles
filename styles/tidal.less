@@ -1,0 +1,99 @@
+// The ui-variables file is provided by base themes provided by Pulsar.
+//
+// See https://github.com/pulsar-edit/pulsar/blob/master/static/variables/ui-variables.less
+// for a full listing of what's available.
+@import "ui-variables";
+
+@soundbrowser-icon-font: 'Octicons Regular';
+
+atom-text-editor.editor .line {
+  transition:  background-color .8s ease-out;
+  -webkit-transition: background-color .8s ease-out;
+
+  &.line-error {
+    background-color: fadeout(@background-color-error, 95%);
+    border: 1px solid fadeout(@background-color-error, 50%);
+  }
+
+  &.line-highlight {
+    background-color: @background-color-highlight;
+  }
+
+  &.eval-flash {
+    color: @text-color-selected;
+    background-color: @background-color-selected;
+  }
+
+  &.eval-success {
+    color: @text-color-success;
+    background-color: fadeout(@background-color-success, 50%);
+  }
+
+  &.eval-error,
+  &.eval-syntax-error {
+    color: @text-color-error;
+    background-color: @background-color-error;
+  }
+}
+
+atom-pane div.tidalcycles.console {
+  &.hidden{
+    display: none;
+  }
+  padding: 3px 10px;
+  overflow: scroll;
+  pre {
+    font-family: Consolas, monospace;
+    font-size: 14px;
+    white-space: pre-wrap;
+    word-break: keep-all;
+  }
+  .error{
+    color: @text-color-error;
+  }
+}
+
+.atom-sound-browser {
+  padding-left: 8px;
+  padding-top: 5px;
+
+  ul {
+    padding-inline-start: 20px;
+  }
+
+  li {
+    list-style-type: none;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+    span.icon {
+      margin-left: 2px;
+
+      &-speaker:before {
+        font-family: @soundbrowser-icon-font;
+        content: '\f077';
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
+
+  li:hover {
+    background-color: #292829;
+  }
+
+  li.icon {
+
+    &-open:before {
+      font-family: @soundbrowser-icon-font;
+      content: '\f0A3';
+    }
+
+    &-close:before {
+      font-family: @soundbrowser-icon-font;
+      content: '\f078';
+      margin-right: 7px;
+    }
+  }
+
+}
