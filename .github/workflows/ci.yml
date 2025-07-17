@@ -16,6 +16,11 @@ jobs:
     - uses: actions/checkout@v4
     - if:  matrix.os == 'ubuntu-latest'
       run: sudo apt install libsecret-1-0
+    - uses: actions/setup-node@v4
+      with:
+       node-version: 22
+       cache: 'npm'
+    - run: npm install
     - name: Setup Pulsar Editor
       uses: pulsar-edit/action-pulsar-dependency@v3.4
     - name: Run the headless Pulsar Tests
