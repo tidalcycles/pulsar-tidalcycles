@@ -3,6 +3,7 @@
   "main": "./lib/tidalcycles",
   "version": "4.0.2",
   "description": "TidalCycles, a language for live coding algorithmic patterns.",
+  "atomTestRunner": "runners/jasmine2-test-runner",
   "activationCommands": {
     "atom-text-editor": [
       "tidalcycles:eval",
@@ -15,7 +16,7 @@
   },
   "dependencies": {
     "directory-tree": "^3.5.2",
-    "osc-min": "^2.1.2"
+    "osc-min": "^1.1.2"
   },
   "repository": "git@github.com:tidalcycles/pulsar-tidalcycles.git",
   "license": "GPL-3.0",

@@ -10,8 +10,8 @@ describe('repl', () => {
   let bootTidal = { choosePath: () => '', blocks: () => [] }
   let repl = new Repl(consoleView, {}, bootTidal)
 
-  beforeEach(() => {
-    waitsForPromise(() => atom.packages.activate('tidalcycles'))
+  beforeEach(async () => {
+    await atom.packages.activate('tidalcycles');
   })
 
   describe('init tidal', () => {
@@ -22,8 +22,8 @@ describe('repl', () => {
 
       repl.initTidal()
 
-      expect(repl.tidalSendLine.callCount).toBe(1)
-      expect(repl.tidalSendLine.calls[0].args[0]).toBe(':script lib/BootTidal.hs')
+      expect(repl.tidalSendLine.calls.count()).toBe(1)
+      expect(repl.tidalSendLine).toHaveBeenCalledWith(':script lib/BootTidal.hs');
     })
 
     it('should load BootTidal sending every script block to ghci if path contains a whitespace (because ghci can\'t handle whitespaces in :script)', () => {
@@ -33,11 +33,10 @@ describe('repl', () => {
       bootTidal.blocks = () => [':set im a single expression',"im a standard\ncode block"]
 
       repl.initTidal()
-
-      expect(repl.tidalSendLine.callCount).toBe(1)
-      expect(repl.tidalSendLine.calls[0].args[0]).toBe(':set im a single expression')
-      expect(repl.tidalSendExpression.callCount).toBe(1)
-      expect(repl.tidalSendExpression.calls[0].args[0]).toBe('im a standard\ncode block')
+      expect(repl.tidalSendLine.calls.count({})).toBe(1)
+      expect(repl.tidalSendLine).toHaveBeenCalledWith(':set im a single expression')
+      expect(repl.tidalSendExpression.calls.count({})).toBe(1)
+      expect(repl.tidalSendExpression).toHaveBeenCalledWith('im a standard\ncode block')
     })
   })
 
@@ -49,9 +48,9 @@ describe('repl', () => {
       repl.toggleMute('3')
       repl.toggleMute('3')
 
-      expect(repl.tidalSendLine.callCount).toBe(2)
-      expect(repl.tidalSendLine.calls[0].args[0]).toBe('mute 3')
-      expect(repl.tidalSendLine.calls[1].args[0]).toBe('unmute 3')
+      expect(repl.tidalSendLine.calls.count({})).toBe(2)
+      expect(repl.tidalSendLine.calls.first().args[0]).toBe('mute 3')
+      expect(repl.tidalSendLine.calls.mostRecent().args[0]).toBe('unmute 3')
     })
   })
 
@@ -61,8 +60,8 @@ describe('repl', () => {
 
       repl.unmuteAll()
 
-      expect(repl.tidalSendLine.callCount).toBe(1)
-      expect(repl.tidalSendLine.calls[0].args[0]).toBe('unmuteAll')
+      expect(repl.tidalSendLine.calls.count({})).toBe(1);
+      expect(repl.tidalSendLine).toHaveBeenCalledWith('unmuteAll');
     })
   })
 })

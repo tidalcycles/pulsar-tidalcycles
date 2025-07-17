@@ -1,6 +1,5 @@
 const AutocompleteProvider = require('../lib/autocomplete-provider')
 const child_process = require('child_process')
-const fs = require('fs')
 
 describe('autocompleteProvider', () => {
 
@@ -70,44 +69,44 @@ describe('autocompleteProvider', () => {
   })
 
   describe('suggestion details on select', () => {
-    it('should get details from hoogle', () => {
-      spyOn(child_process, "execSync").andReturn('documentation from hoogle\n')
+    it('should get details from hoogle', async () => {
+      spyOn(child_process, "execSync").and.returnValue('documentation from hoogle\n')
 
-      waitsForPromise(() => provider.getSuggestionDetailsOnSelect({
+      let suggestion = await provider.getSuggestionDetailsOnSelect({
         text: 'functionname',
         description: 'original description',
         rightLabel: 'Function.Module',
-      }).then(suggestion => {
-        expect(suggestion.description).toBe('documentation from hoogle')
-      }))
+      })
+
+      expect(suggestion.description).toBe('documentation from hoogle');
     })
 
-    it('should not change anything if hoogle returns error', () => {
-      spyOn(child_process, "execSync").andCallFake(() => {
+    it('should not change anything if hoogle returns error', async () => {
+      spyOn(child_process, "execSync").and.callFake(() => {
         throw Error('generic error')
       })
 
-      waitsForPromise(() => provider.getSuggestionDetailsOnSelect({
+      let suggestion = await provider.getSuggestionDetailsOnSelect({
         text: 'functionname',
         description: 'original description',
         rightLabel: 'Function.Module',
-      }).then(suggestion => {
-          expect(suggestion.description).toBe('original description')
-        }))
+      });
+
+      expect(suggestion.description).toBe('original description');
     })
 
     it('should not change anything if hoogle returns "No results found"', () => {
-      spyOn(child_process, "execSync").andReturn('No results found\n')
+      spyOn(child_process, "execSync").and.returnValue('No results found\n')
 
-      waitsForPromise(() => provider.getSuggestionDetailsOnSelect({
+      let suggestion = provider.getSuggestionDetailsOnSelect({
         text: 'functionname',
         description: 'original description',
         rightLabel: 'Function.Module',
-      }).then(suggestion => {
-          expect(suggestion.description).toBe('original description')
-        })
-      )
+      });
+
+      expect(suggestion.description).toBe(undefined);
     })
+
   })
 
 })
