@@ -88,40 +88,31 @@ Filter all the console log and show only errors
 #### Only Log Last Message
 Filter all the console old logs and show only the last one
 
-### OSC Server
-An OSC server can be configured to work with some OSC based features like:
-- [OSC Eval](#osc-eval)
+### Osc Eval
+It's possibile to evaluate tidal code with OSC messages.
 
-Note that the server will only start if at least one OSC based feature is enabled.
-You'll see a log in the console like:
-```
-Listening for external osc messages on ...
-```
-
-##### Ip
-The server is listening on this ip address for incoming osc messages:
-* Default Ip: 127.0.0.1
-
-##### Port
+#### Port
 The plugin is listening on this specified port for incoming osc messages:
 * Default Port: 3333
 
-#### Osc Eval
-It's possible to evaluate tidal code with OSC messages.
+#### Ip
+The plugin is listening on this ip address for incoming osc messages:
 
-##### Address
+* Default Ip: 127.0.0.1
+
+#### Address
 The plugin is filtering incoming osc messages with this specified address.
 * Default address: /pulsar/eval
 
-##### Arguments
+#### Arguments
 
-###### Type
+##### Type
 Mandatory `type` argument to specify what kind of evaluation is requested:
 1. line (evaluate single line)
 2. multi_line (evaluate code block)
 3. whole_editor (evaluate all the editor)
 
-###### Row / Column
+##### Row / Column
 `row` and `column` parameters can be specified to move the cursor on that position before the evaluation.
 
 ### Sound Browser
