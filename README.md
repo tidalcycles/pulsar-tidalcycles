@@ -88,6 +88,50 @@ Filter all the console log and show only errors
 #### Only Log Last Message
 Filter all the console old logs and show only the last one
 
+### Event Highlighting
+
+The event highlighting allows to visualize the active events within a mini notation pattern. This means, that only events within quotation marks will be considered. 
+
+#### TidalCycles configuration
+
+TidalCycles needs to be configured to send editor highlight events. This is usually done by modifying the `BootTidal.hs` file and adding an editor highlight target. Here is a working example:
+
+```haskell
+let editorTarget = Target {oName = "editor", oAddress = "127.0.0.1", oPort = 6013, oLatency = 0.02, oSchedule = Pre BundleStamp, oWindow = Nothing, oHandshake = False, oBusPort = Nothing }
+let editorShape = OSCContext "/editor/highlights"
+
+tidal <- startStream (defaultConfig {cFrameTimespan = 1/50}) [(superdirtTarget {oLatency = 0.2}, [superdirtShape]), (editorTarget, [editorShape])]
+```
+
+The path to the `BootTidal.hs` file can be found in the TidalCycles output console after TidalCycles has been booted in the editor.
+
+#### Framerate
+
+The event highlight animation is in relation to the refresh rate of the users display and the `cFrameTimespan` value of TidalCycles. This means, that the animation fps needs to be smaller then the denominator of the `cFrameTimespan` value. However a good value is somehow between `20 fps` and `30 fps`.
+
+#### Custom Styles
+
+It is possible to customize the event highlighting css styles. For this you can add the css classes under `Pulsar -> Stylesheet...`.
+
+There is a default style, that can be overriden like this in the global stylesheet:
+
+```css
+.event-highlight {
+  outline: 2px solid orange;
+  outline-offset: 0px;
+}
+```
+
+And it is possible to override the styles for every individual stream like this:
+
+```css
+.event-highlight-2 {
+  background-color: white;
+}
+```
+
+The pattern of the css class is `.event-highlight-[streamID]`.
+
 ### Osc Eval
 It's possibile to evaluate tidal code with OSC messages.
 
