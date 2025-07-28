@@ -69,4 +69,33 @@ describe('Line Processor', () => {
             expect(results[6]).toEqual({ start: 41, end: 41});
         })
     })
+
+    describe('controlPatternsRegex', () => {
+        it ('should match all strings and their quotation marks in a line', () => {
+		const testString = `d1 $ s "<superpiano 808>" # note "0"`;
+		const expected = [`"<superpiano 808>"`, `"0"`];
+		
+		expect(testString.match(LineProcessor.controlPatternsRegex())).toEqual(expected);
+	})
+    })
+
+    describe('exceptedFunctionPatterns', () => {
+        it ('should match numerals function occurance in a line', () => {
+		const testString = `numerals = "0 1 2 3"`;
+		const expected = 'numerals = "0 1 2 3"';
+		expect(testString.match(LineProcessor.exceptedFunctionPatterns())[0]).toEqual(expected);
+	})
+
+        it ('should match p function occurance in a line', () => {
+		const testString = `p "hello" $ s "808"`;
+		const expected = 'p "hello" $ s "808"';
+                
+		expect(testString.match(LineProcessor.exceptedFunctionPatterns())[0]).toEqual(expected);
+	})
+
+        it ('should not match an allowed control pattern in a line', () => {
+		const testString = `d1 $ s "superpiano"`;
+		expect(testString.match(LineProcessor.exceptedFunctionPatterns())).toBeNull()
+	})
+    })
 })
