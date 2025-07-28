@@ -17,7 +17,7 @@ describe('Line Processor', () => {
 	it('should falsify an invalid char', () => {
 		expect(LineProcessor.isValidTidalWordChar('*')).toBe(false);
 	})
-    }) 
+    })
 
     describe('isQuotationMark', () => {
 	it('should truthify quotation mark', () => {
@@ -27,13 +27,13 @@ describe('Line Processor', () => {
 	it('should falsify non quotation mark', () => {
 		expect(LineProcessor.isQuotationMark('*')).toBe(false);
 	})
-    }) 
+    })
 
     describe('isQuotationMark', () => {
         it('should find the range for one ControlPattern and one word and execute the callback once', ()  => {
             const results = [];
             LineProcessor.findTidalWordRanges(
-            	`d1 $ s "superpiano" # note 0`, 
+            	`d1 $ s "superpiano" # note 0`,
             	(result) => results.push(result));
 
             expect(results.length).toEqual(1);
@@ -43,7 +43,7 @@ describe('Line Processor', () => {
         it('should find the range for two ControlPatterns and several words and execute the callback accorgingly', ()  => {
             const results = [];
             LineProcessor.findTidalWordRanges(
-            	`d1 $ s "<superpiano 808>" # note "0"`, 
+            	`d1 $ s "<superpiano 808>" # note "0"`,
             	(result) => results.push(result));
 
             expect(results.length).toEqual(3);
@@ -56,7 +56,7 @@ describe('Line Processor', () => {
         it('should find the range for one relatively complex ControlPattern and several words and execute the callback accordingly', ()  => {
             const results = [];
             LineProcessor.findTidalWordRanges(
-            	`d1 $ s "superpiano" # note "c'maj'4*<1 2 3>"`, 
+            	`d1 $ s "superpiano" # note "c'maj'4*<1 2 3>"`,
             	(result) => results.push(result));
 
             expect(results.length).toEqual(7);
@@ -74,7 +74,7 @@ describe('Line Processor', () => {
         it ('should match all strings and their quotation marks in a line', () => {
 		const testString = `d1 $ s "<superpiano 808>" # note "0"`;
 		const expected = [`"<superpiano 808>"`, `"0"`];
-		
+
 		expect(testString.match(LineProcessor.controlPatternsRegex())).toEqual(expected);
 	})
     })
@@ -89,7 +89,7 @@ describe('Line Processor', () => {
         it ('should match p function occurance in a line', () => {
 		const testString = `p "hello" $ s "808"`;
 		const expected = 'p "hello" $ s "808"';
-                
+
 		expect(testString.match(LineProcessor.exceptedFunctionPatterns())[0]).toEqual(expected);
 	})
 
