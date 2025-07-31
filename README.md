@@ -105,10 +105,6 @@ tidal <- startStream (defaultConfig {cFrameTimespan = 1/50}) [(superdirtTarget {
 
 The path to the `BootTidal.hs` file can be found in the TidalCycles output console after TidalCycles has been booted in the editor.
 
-#### Framerate
-
-The event highlight animation is in relation to the refresh rate of the users display and the `cFrameTimespan` value of TidalCycles. This means, that the animation fps needs to be smaller then the denominator of the `cFrameTimespan` value. However a good value is somehow between `20 fps` and `30 fps`.
-
 #### Custom Styles
 
 It is possible to customize the event highlighting css styles. For this you can add the css classes under `Pulsar -> Stylesheet...`.
