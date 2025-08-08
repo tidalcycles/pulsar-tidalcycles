@@ -16,8 +16,7 @@
   },
   "dependencies": {
     "directory-tree": "^3.5.2",
-    "osc-min": "^1.1.2",
-    "audiomotion-analyzer": "^4.4.0"
+    "osc-min": "^1.1.2"
   },
   "repository": "git@github.com:tidalcycles/pulsar-tidalcycles.git",
   "license": "GPL-3.0",
