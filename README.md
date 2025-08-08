@@ -128,8 +128,22 @@ And it is possible to override the styles for every individual stream like this:
 
 The pattern of the css class is `.event-highlight-[streamID]`.
 
+Last but not least, it is possible to send osc messages to the pulsar editor, to override the css properties. This will only work, if the Osc Eval feature is enabled, because it uses the same listener. This is a SuperCollider example:
+
+```c++
+var pulsarOSC = NetAddr("127.0.0.1", 3333);
+
+pulsarOSC.sendMsg("/pulsar/event-highlighting/add-style", "id", "1", "css", "{background-color: white;}");
+```
+
+The css class cascades like this:
+
+`.event-highlight < .event-highlight-[streamID] < .event-highlight-osc-[streamID]`
+
+
+
 ### Osc Eval
-It's possibile to evaluate tidal code with OSC messages.
+It's possible to evaluate tidal code with OSC messages.
 
 #### Port
 The plugin is listening on this specified port for incoming osc messages:
