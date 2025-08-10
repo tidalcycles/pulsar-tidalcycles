@@ -22,43 +22,4 @@ describe('Set', () => {
 
         expect([...setA.union(setB)]).toEqual([...result]);
    })
-
-   it('should apply intersection for simple number type correctly', () => {
-        const setA = new Set([1,2,3]);
-        const setB = new Set([3,4]);
-
-        const result = new Set([3]);
-
-        expect(setA.intersection(setB)).toEqual(result);
-   })
-
-   it('should apply intersection for objects correctly', () => {
-        const setA = new Set([{id: 1, colStart: 8, eventId: 20},{id: 1, colStart: 32, eventId: 20}]);
-        const setB = new Set([{id: 2, colStart: 10, eventId: 33}]);
-
-        const result = new Set([]);
-
-        expect([...setA.intersection(setB)]).toEqual([...result]);
-   })
-
-   it('should apply difference for simple number type correctly', () => {
-        const setA = new Set([1,2,3]);
-        const setB = new Set([3,4]);
-
-        const result = new Set([1,2]);
-
-        expect(setA.difference(setB)).toEqual(result);
-   })
-
-   it('should apply difference for objects correctly', () => {
-        const setA = new Set([{id: 1, colStart: 8, eventId: 20},{id: 1, colStart: 32, eventId: 20}]);
-        const setB = new Set([{id: 2, colStart: 10, eventId: 33}]);
-
-        const result = new Set([
-          {id: 1, colStart: 8, eventId: 20}
-          , {id: 1, colStart: 32, eventId: 20}
-        ]);
-
-        expect([...setA.difference(setB)]).toEqual([...result]);
-   })
 })

@@ -59,15 +59,15 @@ describe('Event Map Helper', () => {
       })
   })
 
-  describe('transformedEvents', () => {
-      it('should return the transformed Sets into correspondings Maps', () => {
+  describe('setToMap', () => {
+      it('should return the setToMap Sets into correspondings Maps', () => {
         const events = new Set([
           { id: 1, colStart: 8, eventId: 20 }
           , { id: 2, colStart: 10, eventId: 33 }
           , { id: 3, colStart: 24, eventId: 50 }
         ]);
 
-        const transformedEvents = EventMapHelper.transformedEvents(events);
+        const setToMap = EventMapHelper.setToMap(events);
 
         const expectedResult = new Map([
           [20, new Map([
@@ -81,7 +81,7 @@ describe('Event Map Helper', () => {
           ])]
         ]);
 
-        expect(transformedEvents).toEqual(expectedResult);
+        expect(setToMap).toEqual(expectedResult);
       })
   })
 })
