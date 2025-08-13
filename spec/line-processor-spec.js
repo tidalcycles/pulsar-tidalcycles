@@ -17,12 +17,6 @@ describe('Line Processor', () => {
 	    it('should falsify an invalid char', () => {
 	    	expect(LineProcessor.isValidTidalWordChar('*')).toBe(false);
 	    })
-    })
-
-    describe('isQuotationMark', () => {
-	    it('should truthify quotation mark', () => {
-	    	expect(LineProcessor.isQuotationMark('"')).toBe(true);
-	    })
 
         it('should truthify a valid minus', () => {
             expect(LineProcessor.isValidTidalWordChar('-')).toBe(true);
@@ -31,7 +25,17 @@ describe('Line Processor', () => {
         it('should truthify a valid dot', () => {
     		expect(LineProcessor.isValidTidalWordChar('.')).toBe(true);
     	})
-    
+
+        it('should truthify a valid colon', () => {
+    		expect(LineProcessor.isValidTidalWordChar(':')).toBe(true);
+    	})
+    })
+
+    describe('isQuotationMark', () => {
+	    it('should truthify quotation mark', () => {
+	    	expect(LineProcessor.isQuotationMark('"')).toBe(true);
+	    })
+
     	it('should falsify non quotation mark', () => {
     		expect(LineProcessor.isQuotationMark('*')).toBe(false);
     	})
