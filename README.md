@@ -100,7 +100,7 @@ TidalCycles needs to be configured to send editor highlight events. This is usua
 let editorTarget = Target {oName = "editor", oAddress = "127.0.0.1", oPort = 6013, oLatency = 0.2, oSchedule = Pre BundleStamp, oWindow = Nothing, oHandshake = False, oBusPort = Nothing }
 let editorShape = OSCContext "/editor/highlights"
 
-tidal <- startStream (defaultConfig {cFrameTimespan = 1/30, , cProcessAhead = (1/20)}) [(superdirtTarget {oLatency = 0.02}, [superdirtShape]), (editorTarget, [editorShape])]
+tidal <- startStream (defaultConfig {cFrameTimespan = 1/50, cProcessAhead = (1/20)}) [(superdirtTarget {oLatency = 0.02}, [superdirtShape]), (editorTarget, [editorShape])]
 ```
 
 The path to the `BootTidal.hs` file can be found in the TidalCycles output console after TidalCycles has been booted in the editor.
