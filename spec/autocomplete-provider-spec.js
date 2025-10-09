@@ -68,8 +68,9 @@ describe('autocompleteProvider', () => {
         description: '(Applicative a, Sound.Tidal.Core.Unionable b) => a b -> a b -> a b',
         type: 'function',
         rightLabel: 'Sound.Tidal.Core',
-        descriptionMoreURL: 'https://hoogle.haskell.org/?hoogle=|<|&scope=package:tidal',
-        leftLabelHTML: '<a data-docs-link href="https://tidalcycles.org/search?q=|<|" title="Open tidalcycles.org in a browser." tabindex="-1">🔗</a>'
+        // |<| will be encoded with %7C and %3C characters, giving "%7C%3C%7C".
+        descriptionMoreURL: 'https://hoogle.haskell.org/?hoogle=%7C%3C%7C&scope=package:tidal',
+        leftLabelHTML: '<a data-docs-link href="https://tidalcycles.org/search?q=%7C%3C%7C" title="Open tidalcycles.org in a browser." tabindex="-1">🔗</a>'
       })
     })
   })
