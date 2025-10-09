@@ -31,6 +31,8 @@ describe('autocompleteProvider', () => {
         description: '[a] -> Sound.Tidal.Pattern.Pattern a',
         type: 'function',
         rightLabel: 'Sound.Tidal.Core',
+        descriptionMoreURL: 'https://hoogle.haskell.org/?hoogle=listToPat&scope=package:tidal',
+        leftLabelHTML: '<a data-docs-link href="https://tidalcycles.org/search?q=listToPat" title="Open tidalcycles.org in a browser." tabindex="-1">🔗</a>'
       })
     })
 
@@ -48,6 +50,8 @@ describe('autocompleteProvider', () => {
         description: 'Sound.Tidal.Pattern.Pattern Double -> Sound.Tidal.Pattern.ControlPattern',
         type: 'function',
         rightLabel: 'Sound.Tidal.Params',
+        descriptionMoreURL: 'https://hoogle.haskell.org/?hoogle=phaserdepth&scope=package:tidal',
+        leftLabelHTML: '<a data-docs-link href="https://tidalcycles.org/search?q=phaserdepth" title="Open tidalcycles.org in a browser." tabindex="-1">🔗</a>'
       })
     })
 
@@ -64,6 +68,8 @@ describe('autocompleteProvider', () => {
         description: '(Applicative a, Sound.Tidal.Core.Unionable b) => a b -> a b -> a b',
         type: 'function',
         rightLabel: 'Sound.Tidal.Core',
+        descriptionMoreURL: 'https://hoogle.haskell.org/?hoogle=|<|&scope=package:tidal',
+        leftLabelHTML: '<a data-docs-link href="https://tidalcycles.org/search?q=|<|" title="Open tidalcycles.org in a browser." tabindex="-1">🔗</a>'
       })
     })
   })
