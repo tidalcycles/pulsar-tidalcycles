@@ -145,7 +145,7 @@ describe('ghc', () => {
   })
 
   describe('browseTidal', () => {
-    it(`should wrap ghci path with double quotes for default interpreter to handle whitespace-in-path`, () => {
+    it(`should not wrap ghci path with double quotes for default interpreter`, () => {
       atom.config.set('tidalcycles.interpreter', 'default')
       atom.config.set('tidalcycles.ghciPath', '/path whitespace/')
       spyOn(child_process, 'exec')
@@ -153,7 +153,7 @@ describe('ghc', () => {
       ghc.init()
       ghc.browseTidal(() => {})
 
-      expect(child_process.exec.calls.mostRecent().args[0]).toBe('echo ":browse Sound.Tidal.Context" | "/path whitespace/ghci"')
+      expect(child_process.exec.calls.mostRecent().args[0]).toBe('echo :browse Sound.Tidal.Context | "/path whitespace/ghci"')
     })
 
     it(`should not wrap ghci path with double quotes for stack interpreter`, () => {
@@ -163,7 +163,7 @@ describe('ghc', () => {
       ghc.init()
       ghc.browseTidal(() => {})
 
-      expect(child_process.exec.calls.mostRecent().args[0]).toBe('echo ":browse Sound.Tidal.Context" | stack exec --package tidal ghci')
+      expect(child_process.exec.calls.mostRecent().args[0]).toBe('echo :browse Sound.Tidal.Context | stack exec --package tidal ghci')
     })
 
     it(`should not wrap ghci path with double quotes for nix interpreter`, () => {
@@ -173,7 +173,7 @@ describe('ghc', () => {
       ghc.init()
       ghc.browseTidal(() => {})
 
-      expect(child_process.exec.calls.mostRecent().args[0]).toBe('echo ":browse Sound.Tidal.Context" | nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run ghci')
+      expect(child_process.exec.calls.mostRecent().args[0]).toBe('echo :browse Sound.Tidal.Context | nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run ghci')
     })
   })
 
