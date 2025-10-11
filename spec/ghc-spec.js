@@ -145,7 +145,7 @@ describe('ghc', () => {
   })
 
   describe('browseTidal', () => {
-    it(`should not wrap ghci path with double quotes for default interpreter`, () => {
+    it(`should not wrap ghci path with double quotes for default interpreter and should appropriately pipe to temp file for multiple executions.`, () => {
       atom.config.set('tidalcycles.interpreter', 'default')
       atom.config.set('tidalcycles.ghciPath', '/path whitespace/')
       spyOn(child_process, 'exec')
@@ -153,27 +153,40 @@ describe('ghc', () => {
       ghc.init()
       ghc.browseTidal(() => {})
 
-      expect(child_process.exec.calls.mostRecent().args[0]).toBe('echo :browse Sound.Tidal.Context | "/path whitespace/ghci"')
+      const os = require('os')
+      const path = require('path')
+      const expectedTempFile = path.join(os.tmpdir(), 'tidal-browse-commands.txt')
+      const expectedGhciPath = path.join('/path whitespace/', 'ghci')
+      const expectedCommand = `"${expectedGhciPath}" < "${expectedTempFile}"`
+      expect(child_process.exec.calls.mostRecent().args[0]).toBe(expectedCommand)
     })
 
-    it(`should not wrap ghci path with double quotes for stack interpreter`, () => {
+    it(`should not wrap ghci path with double quotes for stack interpreter and should appropriately pipe to temp file for multiple executions.`, () => {
       atom.config.set('tidalcycles.interpreter', 'stack')
       spyOn(child_process, 'exec')
 
       ghc.init()
       ghc.browseTidal(() => {})
 
-      expect(child_process.exec.calls.mostRecent().args[0]).toBe('echo :browse Sound.Tidal.Context | stack exec --package tidal ghci')
+      const os = require('os')
+      const path = require('path')
+      const expectedTempFile = path.join(os.tmpdir(), 'tidal-browse-commands.txt')
+      const expectedCommand = `stack exec --package tidal ghci < "${expectedTempFile}"`
+      expect(child_process.exec.calls.mostRecent().args[0]).toBe(expectedCommand)
     })
 
-    it(`should not wrap ghci path with double quotes for nix interpreter`, () => {
+    it(`should not wrap ghci path with double quotes for nix interpreter and should appropriately pipe to temp file for multiple executions.`, () => {
       atom.config.set('tidalcycles.interpreter', 'nix')
       spyOn(child_process, 'exec')
 
       ghc.init()
       ghc.browseTidal(() => {})
 
-      expect(child_process.exec.calls.mostRecent().args[0]).toBe('echo :browse Sound.Tidal.Context | nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run ghci')
+      const os = require('os')
+      const path = require('path')
+      const expectedTempFile = path.join(os.tmpdir(), 'tidal-browse-commands.txt')
+      const expectedCommand = `nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run ghci < "${expectedTempFile}"`
+      expect(child_process.exec.calls.mostRecent().args[0]).toBe(expectedCommand)
     })
   })
 
