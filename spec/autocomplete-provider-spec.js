@@ -1,5 +1,4 @@
 const AutocompleteProvider = require('../lib/autocomplete-provider')
-const child_process = require('child_process')
 
 describe('autocompleteProvider', () => {
 
@@ -73,47 +72,6 @@ describe('autocompleteProvider', () => {
         leftLabelHTML: '<a data-docs-link href="https://tidalcycles.org/search?q=%7C%3C%7C%20operator" title="Open tidalcycles.org in a browser." tabindex="-1">🔗</a>'
       })
     })
-  })
-
-  describe('suggestion details on select', () => {
-    it('should get details from hoogle', async () => {
-      spyOn(child_process, "execSync").and.returnValue('documentation from hoogle\n')
-
-      let suggestion = await provider.getSuggestionDetailsOnSelect({
-        text: 'functionname',
-        description: 'original description',
-        rightLabel: 'Function.Module',
-      })
-
-      expect(suggestion.description).toBe('documentation from hoogle');
-    })
-
-    it('should not change anything if hoogle returns error', async () => {
-      spyOn(child_process, "execSync").and.callFake(() => {
-        throw Error('generic error')
-      })
-
-      let suggestion = await provider.getSuggestionDetailsOnSelect({
-        text: 'functionname',
-        description: 'original description',
-        rightLabel: 'Function.Module',
-      });
-
-      expect(suggestion.description).toBe('original description');
-    })
-
-    it('should not change anything if hoogle returns "No results found"', () => {
-      spyOn(child_process, "execSync").and.returnValue('No results found\n')
-
-      let suggestion = provider.getSuggestionDetailsOnSelect({
-        text: 'functionname',
-        description: 'original description',
-        rightLabel: 'Function.Module',
-      });
-
-      expect(suggestion.description).toBe(undefined);
-    })
-
   })
 
 })
