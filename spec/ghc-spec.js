@@ -1,6 +1,7 @@
 const child_process = require('child_process')
 const fs = require('fs')
 const os = require('os')
+const path = require('path')
 const Ghc = require('../lib/ghc')
 
 describe('ghc', () => {
@@ -153,8 +154,6 @@ describe('ghc', () => {
       ghc.init()
       ghc.browseTidal(() => {})
 
-      const os = require('os')
-      const path = require('path')
       const expectedTempFile = path.join(os.tmpdir(), 'tidal-browse-commands.txt')
       const expectedGhciPath = path.join('/path whitespace/', 'ghci')
       const expectedCommand = `"${expectedGhciPath}" < "${expectedTempFile}"`
@@ -168,8 +167,6 @@ describe('ghc', () => {
       ghc.init()
       ghc.browseTidal(() => {})
 
-      const os = require('os')
-      const path = require('path')
       const expectedTempFile = path.join(os.tmpdir(), 'tidal-browse-commands.txt')
       const expectedCommand = `stack exec --package tidal ghci < "${expectedTempFile}"`
       expect(child_process.exec.calls.mostRecent().args[0]).toBe(expectedCommand)
@@ -182,8 +179,6 @@ describe('ghc', () => {
       ghc.init()
       ghc.browseTidal(() => {})
 
-      const os = require('os')
-      const path = require('path')
       const expectedTempFile = path.join(os.tmpdir(), 'tidal-browse-commands.txt')
       const expectedCommand = `nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run ghci < "${expectedTempFile}"`
       expect(child_process.exec.calls.mostRecent().args[0]).toBe(expectedCommand)
