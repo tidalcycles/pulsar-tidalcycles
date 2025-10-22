@@ -1,10 +1,10 @@
-const SigFormatter = require('../lib/sig-formatter');
+const SignatureFormatter = require('../lib/signature-formatter');
 
-describe('SigFormatter', () => {
+describe('SignatureFormatter', () => {
   let formatter;
 
   beforeEach(() => {
-    formatter = new SigFormatter();
+    formatter = new SignatureFormatter();
   });
 
   describe('formatTypeSignatureArrows', () => {
