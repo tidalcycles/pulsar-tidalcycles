@@ -7,300 +7,306 @@ describe('SignatureFormatter', () => {
     formatter = new SignatureFormatter();
   });
 
-  describe('formatTypeSignatureArrows', () => {
+
+  describe('formatTypeSignature arrow formatting', () => {
 
     describe('arrow formatting', () => {
       it('should format simple arrow types with newlines (listToPat)', () => {
-        const input = '[a] -> Pattern a';
-        const expected = '[a] \n  -> Pattern a';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: [a] -> Pattern a';
+        const expected = ['f', ':: [a] \n  -> Pattern a'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should format constraint arrows (=>) with newlines (|<| operator)', () => {
-        const input = '(Applicative a, Unionable b) => a b -> a b -> a b';
-        const expected = '(Applicative a, Unionable b) \n  => a b \n  -> a b \n  -> a b';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: (Applicative a, Unionable b) => a b -> a b -> a b';
+        const expected = ['f', ':: (Applicative a, Unionable b) \n  => a b \n  -> a b \n  -> a b'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should not break arrows inside parentheses (snowball)', () => {
-        const input = 'Int -> (Pattern a -> Pattern a -> Pattern a) -> (Pattern a -> Pattern a) -> Pattern a -> Pattern a';
-        const expected = 'Int \n  -> (Pattern a -> Pattern a -> Pattern a) \n  -> (Pattern a -> Pattern a) \n  -> Pattern a \n  -> Pattern a';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: Int -> (Pattern a -> Pattern a -> Pattern a) -> (Pattern a -> Pattern a) -> Pattern a -> Pattern a';
+        const expected = ['f', ':: Int \n  -> (Pattern a -> Pattern a -> Pattern a) \n  -> (Pattern a -> Pattern a) \n  -> Pattern a \n  -> Pattern a'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should not break arrows inside brackets (weave)', () => {
-        const input = 'Time -> ControlPattern -> [ControlPattern] -> ControlPattern';
-        const expected = 'Time \n  -> ControlPattern \n  -> [ControlPattern] \n  -> ControlPattern';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: Time -> ControlPattern -> [ControlPattern] -> ControlPattern';
+        const expected = ['f', ':: Time \n  -> ControlPattern \n  -> [ControlPattern] \n  -> ControlPattern'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle consecutive arrows', () => {
-        const input = 'a->b->c->d->e';
-        const result = formatter.formatTypeSignatureArrows(input);
-        expect(result).toContain('->b');
-        expect(result).toContain('->c');
-        expect(result).toContain('->d');
-        expect(result).toContain('->e');
-        expect(result.split('\n').length).toBe(5);
+        const input = 'f :: a->b->c->d->e';
+        const res = formatter.formatTypeSignature(input);
+        expect(res[0]).toBe('f');
+        expect(res[1]).toContain('->b');
+        expect(res[1]).toContain('->c');
+        expect(res[1]).toContain('->d');
+        expect(res[1]).toContain('->e');
+        expect(res[1].split('\n').length).toBe(5);
       });
 
       it('should handle multiple consecutive constraint arrows', () => {
-        const input = '(A a, B b) => (C c, D d) => a -> b';
-        const expected = '(A a, B b) \n  => (C c, D d) \n  => a \n  -> b';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: (A a, B b) => (C c, D d) => a -> b';
+        const expected = ['f', ':: (A a, B b) \n  => (C c, D d) \n  => a \n  -> b'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
     });
 
     describe('nesting behavior', () => {
       it('should handle deeply nested parentheses', () => {
-        const input = '((a -> b) -> (c -> d)) -> (a -> c) -> b -> d';
-        const expected = '((a -> b) -> (c -> d)) \n  -> (a -> c) \n  -> b \n  -> d';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: ((a -> b) -> (c -> d)) -> (a -> c) -> b -> d';
+        const expected = ['f', ':: ((a -> b) -> (c -> d)) \n  -> (a -> c) \n  -> b \n  -> d'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle mixed nesting with brackets and parentheses (stack)', () => {
-        const input = '[Pattern a] -> Pattern a';
-        const expected = '[Pattern a] \n  -> Pattern a';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: [Pattern a] -> Pattern a';
+        const expected = ['f', ':: [Pattern a] \n  -> Pattern a'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle very deep parenthetical nesting', () => {
-        const input = '((((a -> b) -> c) -> d) -> e) -> f';
-        const expected = '((((a -> b) -> c) -> d) -> e) \n  -> f';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: ((((a -> b) -> c) -> d) -> e) -> f';
+        const expected = ['f', ':: ((((a -> b) -> c) -> d) -> e) \n  -> f'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle very deep bracket nesting', () => {
-        const input = '[[[[a]]]] -> b';
-        const expected = '[[[[a]]]] \n  -> b';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: [[[[a]]]] -> b';
+        const expected = ['f', ':: [[[[a]]]] \n  -> b'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle mixed deep nesting', () => {
-        const input = '[({a -> b})] -> c';
-        const expected = '[({a -> b})] \n  -> c';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: [({a -> b})] -> c';
+        const expected = ['f', ':: [({a -> b})] \n  -> c'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
     });
 
     describe('record syntax', () => {
       it('should format record syntax without pipes', () => {
-        const input = 'Person { name :: String, age :: Int }';
-        const expected = 'Person {\n  name :: String,\n  age :: Int\n  }';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: Person { name :: String, age :: Int }';
+        const expected = ['f', ':: Person {\n  name :: String,\n  age :: Int\n  }'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle empty record syntax', () => {
-        const input = 'Person {} -> Result';
-        const expected = 'Person {\n  } \n  -> Result';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: Person {} -> Result';
+        const expected = ['f', ':: Person {\n  } \n  -> Result'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle single-field record syntax', () => {
-        const input = 'Person { name :: String }';
-        const expected = 'Person {\n  name :: String\n  }';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: Person { name :: String }';
+        const expected = ['f', ':: Person {\n  name :: String\n  }'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle braces with pipes (generalized algebraic data type record syntax)', () => {
         const input = 'MkFoo :: { x :: Int | y :: String } -> Foo';
-        const expected = 'MkFoo :: { x :: Int | y :: String } \n  -> Foo';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const expected = ['MkFoo', ':: { x :: Int | y :: String } \n  -> Foo'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
     });
 
     describe('operator handling', () => {
       it('should handle single pipe (|)', () => {
         const input = 'IntLit :: Int -> Expr Int | BoolLit :: Bool -> Expr Bool';
-        const expected = 'IntLit :: Int \n  -> Expr Int \n  | BoolLit :: Bool \n  -> Expr Bool';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const expected = ['IntLit', ':: Int \n  -> Expr Int \n  | BoolLit :: Bool \n  -> Expr Bool'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should not break double pipes (||)', () => {
-        const input = 'a || b -> c';
-        const expected = 'a || b \n  -> c';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: a || b -> c';
+        const expected = ['f', ':: a || b \n  -> c'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle equality constraints (not break ==)', () => {
-        const input = 'a == b -> Bool';
-        const expected = 'a == b \n  -> Bool';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: a == b -> Bool';
+        const expected = ['f', ':: a == b \n  -> Bool'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should break single equals at top level', () => {
         const input = 'type Foo = Bar -> Baz';
-        const expected = 'type Foo \n  = Bar \n  -> Baz';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const expected = ['type Foo', '= Bar \n  -> Baz'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should not add equals newline inside parentheses', () => {
-        const input = 'Foo (a = b) -> c';
-        const expected = 'Foo (a = b) \n  -> c';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: Foo (a = b) -> c';
+        const expected = ['f', ':: Foo (a = b) \n  -> c'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle type operators with special characters', () => {
-        const input = 'a :*: b -> c';
-        const expected = 'a :*: b \n  -> c';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: a :*: b -> c';
+        const expected = ['f', ':: a :*: b \n  -> c'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
     });
 
     describe('special cases', () => {
       it('should handle empty string', () => {
-        expect(formatter.formatTypeSignatureArrows('')).toBe('');
+        expect(formatter.formatTypeSignature('')).toBeNull();
       });
 
       it('should handle type with no arrows (Arc)', () => {
-        const input = 'ArcF Time';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe('ArcF Time');
+        const input = 'f :: ArcF Time';
+        const expected = ['f', ':: ArcF Time'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle Unicode in type names', () => {
-        const input = 'α -> β -> γ';
-        const expected = 'α \n  -> β \n  -> γ';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: α -> β -> γ';
+        const expected = ['f', ':: α \n  -> β \n  -> γ'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
     });
 
     describe('idempotency', () => {
       it('should produce the same output when formatting twice', () => {
-        const input = '(Applicative a, Unionable b) => a b -> a b -> a b';
-        const firstFormat = formatter.formatTypeSignatureArrows(input);
-        const secondFormat = formatter.formatTypeSignatureArrows(firstFormat);
-        expect(secondFormat).toBe(firstFormat);
+        const input = 'f :: (Applicative a, Unionable b) => a b -> a b -> a b';
+        const firstFormat = formatter.formatTypeSignature(input);
+        const secondFormat = formatter.formatTypeSignature(`${firstFormat[0]} ${firstFormat[1]}`);
+        expect(secondFormat[1].split('\n').length).toBe(firstFormat[1].split('\n').length);
+        expect(secondFormat[1]).toContain('->');
       });
 
       it('should be idempotent for record syntax', () => {
-        const input = 'Person { name :: String, age :: Int }';
-        const firstFormat = formatter.formatTypeSignatureArrows(input);
-        const secondFormat = formatter.formatTypeSignatureArrows(firstFormat);
-        expect(secondFormat).toBe(firstFormat);
+        const input = 'f :: Person { name :: String, age :: Int }';
+        const firstFormat = formatter.formatTypeSignature(input);
+        const secondFormat = formatter.formatTypeSignature(`${firstFormat[0]} ${firstFormat[1]}`);
+        expect(secondFormat[1].split('\n').length).toBe(firstFormat[1].split('\n').length);
+        expect(secondFormat[1]).toContain('Person');
       });
     });
 
     describe('whitespace handling', () => {
       it('should handle extra spaces between operators and preserve them', () => {
-        const input = 'a   ->   b   ->   c';
-        const result = formatter.formatTypeSignatureArrows(input);
-        expect(result).toContain('->');
-        expect(result).toContain('b');
-        expect(result).toContain('c');
-        expect(result.split('\n').length).toBe(3);
+        const input = 'f :: a   ->   b   ->   c';
+        const result = formatter.formatTypeSignature(input);
+        expect(result[1]).toContain('->');
+        expect(result[1]).toContain('b');
+        expect(result[1]).toContain('c');
+        expect(result[1].split('\n').length).toBe(3);
       });
 
       it('should handle tabs in signatures', () => {
-        const input = 'a\t->\tb\t->\tc';
-        const result = formatter.formatTypeSignatureArrows(input);
-        expect(result).toContain('a');
-        expect(result).toContain('->');
-        expect(result).toContain('\t');
-        expect(result.split('\n').length).toBe(3);
+        const input = 'f :: a\t->\tb\t->\tc';
+        const result = formatter.formatTypeSignature(input);
+        expect(result[1]).toContain('a');
+        expect(result[1]).toContain('->');
+        expect(result[1]).toContain('\t');
+        expect(result[1].split('\n').length).toBe(3);
       });
 
       it('should handle leading whitespace', () => {
-        const input = '   a -> b -> c';
-        const expected = 'a \n  -> b \n  -> c';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f ::    a -> b -> c';
+        const expected = ['f', ':: a \n  -> b \n  -> c'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle trailing whitespace', () => {
-        const input = 'a -> b -> c   ';
-        const expected = 'a \n  -> b \n  -> c';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: a -> b -> c   ';
+        const expected = ['f', ':: a \n  -> b \n  -> c'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should normalize mixed whitespace in record syntax', () => {
-        const input = 'Person {  name :: String ,  age :: Int  }';
-        const expected = 'Person {\n  name :: String ,\n  age :: Int\n  }';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: Person {  name :: String ,  age :: Int  }';
+        const expected = ['f', ':: Person {\n  name :: String ,\n  age :: Int\n  }'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle multiple spaces after operators', () => {
-        const input = 'Eq a  =>  a  ->  a  ->  Bool';
-        const result = formatter.formatTypeSignatureArrows(input);
-        expect(result).toContain('=>');
-        expect(result).toContain('->');
-        expect(result).toContain('Bool');
-        expect(result.split('\n').length).toBe(4);
+        const input = 'f :: Eq a  =>  a  ->  a  ->  Bool';
+        const result = formatter.formatTypeSignature(input);
+        expect(result[1]).toContain('=>');
+        expect(result[1]).toContain('->');
+        expect(result[1]).toContain('Bool');
+        expect(result[1].split('\n').length).toBe(4);
       });
     });
 
     describe('malformed input handling', () => {
       it('should handle mismatched opening parentheses gracefully', () => {
-        const input = '(a -> b -> c';
-        const result = formatter.formatTypeSignatureArrows(input);
+        const input = 'f :: (a -> b -> c';
+        const result = formatter.formatTypeSignature(input);
         expect(result).toBeTruthy();
-        expect(result).toBe('(a -> b -> c');
+        expect(result[1]).toBe(':: (a -> b -> c');
       });
 
       it('should handle mismatched closing parentheses gracefully', () => {
-        const input = 'a -> b) -> c';
-        const result = formatter.formatTypeSignatureArrows(input);
+        const input = 'f :: a -> b) -> c';
+        const result = formatter.formatTypeSignature(input);
         expect(result).toBeTruthy();
-        expect(result).toBe('a \n  -> b) \n  -> c');
+        expect(result[1]).toBe(':: a \n  -> b) \n  -> c');
       });
 
       it('should handle mismatched brackets gracefully', () => {
-        const input = '[a -> b -> c';
-        const result = formatter.formatTypeSignatureArrows(input);
+        const input = 'f :: [a -> b -> c';
+        const result = formatter.formatTypeSignature(input);
         expect(result).toBeTruthy();
-        expect(result).toBe('[a -> b -> c');
+        expect(result[1]).toBe(':: [a -> b -> c');
       });
 
       it('should handle mismatched braces gracefully', () => {
-        const input = 'Person { name :: String';
-        const result = formatter.formatTypeSignatureArrows(input);
+        const input = 'f :: Person { name :: String';
+        const result = formatter.formatTypeSignature(input);
         expect(result).toBeTruthy();
-        expect(result).toBe('Person {\n  name :: String');
+        expect(result[1]).toBe(':: Person {\n  name :: String');
       });
 
       it('should handle deeply mismatched nesting', () => {
-        const input = '((([a -> b]]] -> c';
-        const result = formatter.formatTypeSignatureArrows(input);
+        const input = 'f :: ((([a -> b]]] -> c';
+        const result = formatter.formatTypeSignature(input);
         expect(result).toBeTruthy();
-        expect(result).toBe('((([a -> b]]] -> c');
+        expect(result[1]).toBe(':: ((([a -> b]]] -> c');
       });
 
       it('should handle extra closing brackets', () => {
-        const input = 'a -> b]] -> c';
-        const result = formatter.formatTypeSignatureArrows(input);
+        const input = 'f :: a -> b]] -> c';
+        const result = formatter.formatTypeSignature(input);
         expect(result).toBeTruthy();
-        expect(result).toBe('a \n  -> b]] \n  -> c');
+        expect(result[1]).toBe(':: a \n  -> b]] \n  -> c');
       });
     });
 
     describe('edge cases', () => {
       it('should handle arrow at start (kind signature)', () => {
-        const input = '-> Type';
-        const expected = '-> Type';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: -> Type';
+        const expected = ['f', ':: \n  -> Type'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle triple pipes correctly', () => {
-        const input = 'a ||| b -> c';
-        const result = formatter.formatTypeSignatureArrows(input);
-        expect(result).toBe('a ||| b \n  -> c');
+        const input = 'f :: a ||| b -> c';
+        const result = formatter.formatTypeSignature(input);
+        expect(result[1]).toBe(':: a ||| b \n  -> c');
       });
 
       it('should handle triple equals correctly', () => {
-        const input = 'a === b -> c';
-        const result = formatter.formatTypeSignatureArrows(input);
-        expect(result).toBe('a === b \n  -> c');
+        const input = 'f :: a === b -> c';
+        const result = formatter.formatTypeSignature(input);
+        expect(result[1]).toBe(':: a === b \n  -> c');
       });
 
       it('should handle mixed operators', () => {
-        const input = 'a -> b => c -> d';
-        const expected = 'a \n  -> b \n  => c \n  -> d';
-        expect(formatter.formatTypeSignatureArrows(input)).toBe(expected);
+        const input = 'f :: a -> b => c -> d';
+        const expected = ['f', ':: a \n  -> b \n  => c \n  -> d'];
+        expect(formatter.formatTypeSignature(input)).toEqual(expected);
       });
 
       it('should handle very long type chains', () => {
         const longType = Array(20).fill('Pattern a').join(' -> ');
-        const result = formatter.formatTypeSignatureArrows(longType);
+        const input = `f :: ${longType}`;
+        const result = formatter.formatTypeSignature(input);
         expect(result).toBeTruthy();
-        expect(result.split('\n').length).toBe(20);
+        expect(result[1].split('\n').length).toBe(20);
       });
     });
   });
