@@ -1,6 +1,7 @@
 const child_process = require('child_process')
 const fs = require('fs')
 const os = require('os')
+const path = require('path')
 const Ghc = require('../lib/ghc')
 
 describe('ghc', () => {
@@ -145,35 +146,54 @@ describe('ghc', () => {
   })
 
   describe('browseTidal', () => {
-    it(`should not wrap ghci path with double quotes for default interpreter`, () => {
+    it(`should not wrap ghci path with double quotes for default interpreter and should write commands to stdin`, () => {
       atom.config.set('tidalcycles.interpreter', 'default')
       atom.config.set('tidalcycles.ghciPath', '/path whitespace/')
-      spyOn(child_process, 'exec')
+      
+      const mockProcess = {
+        stdin: { write: jasmine.createSpy('write'), end: jasmine.createSpy('end') }
+      }
+      spyOn(child_process, 'exec').and.returnValue(mockProcess)
 
       ghc.init()
       ghc.browseTidal(() => {})
 
-      expect(child_process.exec.calls.mostRecent().args[0]).toBe('echo :browse Sound.Tidal.Context | "/path whitespace/ghci"')
+      const expectedGhciPath = path.join('/path whitespace/', 'ghci')
+      expect(child_process.exec.calls.mostRecent().args[0]).toBe(`"${expectedGhciPath}"`)
+      expect(mockProcess.stdin.write).toHaveBeenCalledWith(':browse Sound.Tidal.Context\n:browse Sound.Tidal.Boot\n')
+      expect(mockProcess.stdin.end).toHaveBeenCalled()
     })
 
-    it(`should not wrap ghci path with double quotes for stack interpreter`, () => {
+    it(`should not wrap ghci path with double quotes for stack interpreter and should write commands to stdin`, () => {
       atom.config.set('tidalcycles.interpreter', 'stack')
-      spyOn(child_process, 'exec')
+      
+      const mockProcess = {
+        stdin: { write: jasmine.createSpy('write'), end: jasmine.createSpy('end') }
+      }
+      spyOn(child_process, 'exec').and.returnValue(mockProcess)
 
       ghc.init()
       ghc.browseTidal(() => {})
 
-      expect(child_process.exec.calls.mostRecent().args[0]).toBe('echo :browse Sound.Tidal.Context | stack exec --package tidal ghci')
+      expect(child_process.exec.calls.mostRecent().args[0]).toBe('stack exec --package tidal ghci')
+      expect(mockProcess.stdin.write).toHaveBeenCalledWith(':browse Sound.Tidal.Context\n:browse Sound.Tidal.Boot\n')
+      expect(mockProcess.stdin.end).toHaveBeenCalled()
     })
 
-    it(`should not wrap ghci path with double quotes for nix interpreter`, () => {
+    it(`should not wrap ghci path with double quotes for nix interpreter and should write commands to stdin`, () => {
       atom.config.set('tidalcycles.interpreter', 'nix')
-      spyOn(child_process, 'exec')
+      
+      const mockProcess = {
+        stdin: { write: jasmine.createSpy('write'), end: jasmine.createSpy('end') }
+      }
+      spyOn(child_process, 'exec').and.returnValue(mockProcess)
 
       ghc.init()
       ghc.browseTidal(() => {})
 
-      expect(child_process.exec.calls.mostRecent().args[0]).toBe('echo :browse Sound.Tidal.Context | nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run ghci')
+      expect(child_process.exec.calls.mostRecent().args[0]).toBe('nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run ghci')
+      expect(mockProcess.stdin.write).toHaveBeenCalledWith(':browse Sound.Tidal.Context\n:browse Sound.Tidal.Boot\n')
+      expect(mockProcess.stdin.end).toHaveBeenCalled()
     })
   })
 
