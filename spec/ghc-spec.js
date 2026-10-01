@@ -8,8 +8,9 @@ describe('ghc', () => {
 
   let ghc = new Ghc({ logStdout: () => {}, logStderr: () => {}, appendLog: () => {}, flushLog: () => {} })
 
-  beforeEach(async () => {
-    await atom.packages.activate('tidalcycles')
+  beforeEach(() => {
+    atom.config.unset('tidalcycles.interpreter')
+    atom.config.unset('tidalcycles.ghciPath')
     atom.config.unset('tidalcycles.ghciWorkingDirectory')
   })
 
