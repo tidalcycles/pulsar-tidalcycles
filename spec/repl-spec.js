@@ -11,7 +11,7 @@ describe('repl', () => {
   let repl = new Repl(consoleView, {}, bootTidal)
 
   beforeEach(async () => {
-    await atom.packages.activate('tidalcycles');
+    await atom.packages.activatePackage('tidalcycles');
   })
 
   describe('init tidal', () => {

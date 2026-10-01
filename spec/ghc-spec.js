@@ -9,7 +9,7 @@ describe('ghc', () => {
   let ghc = new Ghc({ logStdout: () => {}, logStderr: () => {}, appendLog: () => {}, flushLog: () => {} })
 
   beforeEach(async () => {
-    await atom.packages.activate('tidalcycles');
+    await atom.packages.activatePackage('tidalcycles');
   })
 
   describe('command path', () => {
