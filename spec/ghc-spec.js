@@ -9,7 +9,8 @@ describe('ghc', () => {
   let ghc = new Ghc({ logStdout: () => {}, logStderr: () => {}, appendLog: () => {}, flushLog: () => {} })
 
   beforeEach(async () => {
-    await atom.packages.activate('tidalcycles');
+    await atom.packages.activate('tidalcycles')
+    atom.config.unset('tidalcycles.ghciWorkingDirectory')
   })
 
   describe('command path', () => {
@@ -86,6 +87,65 @@ describe('ghc', () => {
     })
   })
 
+  describe('working directory', () => {
+    it('should be undefined when not configured', () => {
+      expect(ghc.workingDirectory()).toBeUndefined()
+    })
+
+    it('should resolve the configured GHCi working directory', () => {
+      atom.config.set('tidalcycles.ghciWorkingDirectory', 'local-tidal')
+
+      expect(ghc.workingDirectory()).toBe(path.resolve('local-tidal'))
+    })
+
+    it('should use the configured working directory for ghc-pkg', () => {
+      spyOn(child_process, 'execSync').and.returnValue('')
+      atom.config.set('tidalcycles.ghciWorkingDirectory', 'local-tidal')
+
+      ghc.pkg('command definition')
+
+      expect(child_process.execSync.calls.mostRecent().args[1]).toEqual({
+        cwd: path.resolve('local-tidal')
+      })
+    })
+
+    it('should use the configured working directory when browsing Tidal', () => {
+      const mockProcess = {
+        stdin: {
+          write: jasmine.createSpy('write'),
+          end: jasmine.createSpy('end')
+        }
+      }
+
+      spyOn(child_process, 'exec').and.returnValue(mockProcess)
+      atom.config.set('tidalcycles.ghciWorkingDirectory', 'local-tidal')
+
+      ghc.browseTidal(() => {})
+
+      expect(child_process.exec.calls.mostRecent().args[1]).toEqual({
+        cwd: path.resolve('local-tidal')
+      })
+    })
+
+    it('should use the configured working directory for interactive GHCi', () => {
+      atom.config.set('tidalcycles.interpreter', 'default')
+      atom.config.set('tidalcycles.ghciWorkingDirectory', 'local-tidal')
+
+      spyOn(child_process, 'spawn').and.returnValue({
+        stderr: { on: () => {} },
+        stdout: { on: () => {} }
+      })
+
+      ghc.init()
+      ghc.interactive()
+
+      expect(child_process.spawn.calls.mostRecent().args[2]).toEqual({
+        shell: true,
+        cwd: path.resolve('local-tidal')
+      })
+    })
+  })
+
   describe('ghc-pkg command', () => {
     it('should execute ghc-pkg command and trim the result', () => {
       spyOn(child_process, 'execSync').and.returnValue(' command result \n')
@@ -103,7 +163,10 @@ describe('ghc', () => {
       ghc.init()
       ghc.pkg('command arguments')
 
-      expect(child_process.execSync).toHaveBeenCalledWith('"/path with whitespace/ghc-pkg" command arguments')
+      expect(child_process.execSync).toHaveBeenCalledWith(
+        '"/path with whitespace/ghc-pkg" command arguments',
+        { cwd: undefined }
+      )
     })
 
     it(`should not wrap ghc-pkg in double quotes for stack interpreter`, () => {
@@ -113,7 +176,10 @@ describe('ghc', () => {
       ghc.init()
       ghc.pkg('command arguments')
 
-      expect(child_process.execSync).toHaveBeenCalledWith('stack exec --package tidal ghc-pkg command arguments')
+      expect(child_process.execSync).toHaveBeenCalledWith(
+        'stack exec --package tidal ghc-pkg command arguments',
+        { cwd: undefined }
+      )
     })
 
     it(`should not wrap ghc-pkg in double quotes for nix interpreter`, () => {
@@ -123,7 +189,10 @@ describe('ghc', () => {
       ghc.init()
       ghc.pkg('command arguments')
 
-      expect(child_process.execSync).toHaveBeenCalledWith('nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run "ghc-pkg command arguments"')
+      expect(child_process.execSync).toHaveBeenCalledWith(
+        'nix-shell -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.tidal])" --run "ghc-pkg command arguments"',
+        { cwd: undefined }
+      )
     })
   })
 
@@ -149,7 +218,7 @@ describe('ghc', () => {
     it(`should not wrap ghci path with double quotes for default interpreter and should write commands to stdin`, () => {
       atom.config.set('tidalcycles.interpreter', 'default')
       atom.config.set('tidalcycles.ghciPath', '/path whitespace/')
-      
+
       const mockProcess = {
         stdin: { write: jasmine.createSpy('write'), end: jasmine.createSpy('end') }
       }
@@ -166,7 +235,7 @@ describe('ghc', () => {
 
     it(`should not wrap ghci path with double quotes for stack interpreter and should write commands to stdin`, () => {
       atom.config.set('tidalcycles.interpreter', 'stack')
-      
+
       const mockProcess = {
         stdin: { write: jasmine.createSpy('write'), end: jasmine.createSpy('end') }
       }
@@ -182,7 +251,7 @@ describe('ghc', () => {
 
     it(`should not wrap ghci path with double quotes for nix interpreter and should write commands to stdin`, () => {
       atom.config.set('tidalcycles.interpreter', 'nix')
-      
+
       const mockProcess = {
         stdin: { write: jasmine.createSpy('write'), end: jasmine.createSpy('end') }
       }
