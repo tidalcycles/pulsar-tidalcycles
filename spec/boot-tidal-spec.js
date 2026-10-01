@@ -5,8 +5,8 @@ const ghc = { tidalDataDir() {} }
 describe('boot-tidal', () => {
   let bootTidal = new BootTidal(ghc, [{ path: '/current/directory' }], { appendLog: () => {}})
 
-  beforeEach(async () => {
-    await atom.packages.activate('tidalcycles')
+  beforeEach(() => {
+    atom.config.unset('tidalcycles.bootTidalPath')
   })
 
   describe('boot file sequence', () => {

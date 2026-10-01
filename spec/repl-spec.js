@@ -10,10 +10,6 @@ describe('repl', () => {
   let bootTidal = { choosePath: () => '', blocks: () => [] }
   let repl = new Repl(consoleView, {}, bootTidal)
 
-  beforeEach(async () => {
-    await atom.packages.activate('tidalcycles');
-  })
-
   describe('init tidal', () => {
 
     it('should load BootTidal with :script', () => {
