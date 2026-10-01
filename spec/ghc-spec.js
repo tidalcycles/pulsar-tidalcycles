@@ -10,8 +10,9 @@ describe('ghc', () => {
 
   beforeEach(() => {
     atom.config.setSchema('tidalcycles', { type: 'object', properties: require('../lib/config') })
+    atom.config.unset('tidalcycles.interpreter')
+    atom.config.unset('tidalcycles.ghciPath')
     atom.config.unset('tidalcycles.ghciWorkingDirectory')
-  })
   })
 
   describe('command path', () => {
