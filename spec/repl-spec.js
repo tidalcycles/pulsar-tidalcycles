@@ -10,8 +10,8 @@ describe('repl', () => {
   let bootTidal = { choosePath: () => '', blocks: () => [] }
   let repl = new Repl(consoleView, {}, bootTidal)
 
-  beforeEach(async () => {
-    await atom.packages.activatePackage('tidalcycles');
+  beforeEach(() => {
+    atom.config.setSchema('tidalcycles', { type: 'object', properties: require('../lib/config') })
   })
 
   describe('init tidal', () => {
