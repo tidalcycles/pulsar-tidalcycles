@@ -1,9 +1,11 @@
 name: CI
 
 on:
-  - workflow_dispatch
-  - push
-  - pull_request
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [master]
 
 jobs:
   test:
@@ -13,17 +15,24 @@ jobs:
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v6
-    - if:  matrix.os == 'ubuntu-latest'
-      run: sudo apt install libsecret-1-0
-    - uses: actions/setup-node@v6
+    - uses: actions/checkout@v7
+    - if: matrix.os == 'ubuntu-latest'
+      name: Prepare Linux environment
+      run: |
+        sudo apt install libsecret-1-0
+        # Ubuntu 24.04 sets kernel.apparmor_restrict_unprivileged_userns=1,
+        # which disables the unprivileged user-namespace sandbox that Pulsar's
+        # Electron/Chromium renderer relies on. Without this the renderer aborts
+        # (exit code 134) and the headless test run hangs until it is killed.
+        sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+    - uses: actions/setup-node@v7
       with:
-       node-version: 22
+       node-version: 24
        cache: 'npm'
     - run: npm install
     - name: Setup Pulsar Editor
       uses: pulsar-edit/action-pulsar-dependency@v3.4
     - name: Run the headless Pulsar Tests
-      uses: coactions/setup-xvfb@v1.0.1
+      uses: mgor/setup-xvfb@592ebcbb2072ba2dfb7c1f12e686a7cf0fa413e5 # v1
       with:
         run: pulsar --test spec
