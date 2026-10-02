@@ -16,15 +16,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v7
-    - if: matrix.os == 'ubuntu-latest'
-      name: Prepare Linux environment
-      run: |
-        sudo apt install libsecret-1-0
-        # Ubuntu 24.04 sets kernel.apparmor_restrict_unprivileged_userns=1,
-        # which disables the unprivileged user-namespace sandbox that Pulsar's
-        # Electron/Chromium renderer relies on. Without this the renderer aborts
-        # (exit code 134) and the headless test run hangs until it is killed.
-        sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
     - uses: actions/setup-node@v7
       with:
        node-version: 24

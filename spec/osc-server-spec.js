@@ -33,12 +33,16 @@ describe('OscServer', () => {
 
     it('should start an osc server and receive a message', done => {
         let listener = (message) => {
-            if (message) {
-                const args = OscServer.asDictionary(message);
-                expect(args.key).toBe("value");
-                done();
-            } else {
-                done.fail("Received message is empty");
+            try {
+                if (message) {
+                    const args = OscServer.asDictionary(message);
+                    expect(args.key).toBe("value");
+                    done();
+                } else {
+                    done.fail("Received message is empty");
+                }
+            } catch (err) {
+                done.fail(err);
             }
         }
 
@@ -52,10 +56,14 @@ describe('OscServer', () => {
         const expected = [{key1: 'value1'}, {key2: 'value2'}]
 
         let listener = (message) => {
-            messages.push(OscServer.asDictionary(message));
-            if (messages.length === expected.length) {
-                expect(messages).toEqual(expected);
-                done();
+            try {
+                messages.push(OscServer.asDictionary(message));
+                if (messages.length === expected.length) {
+                    expect(messages).toEqual(expected);
+                    done();
+                }
+            } catch (err) {
+                done.fail(err);
             }
         }
 
