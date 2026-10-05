@@ -8,8 +8,8 @@ describe('ghc', () => {
 
   let ghc = new Ghc({ logStdout: () => {}, logStderr: () => {}, appendLog: () => {}, flushLog: () => {} })
 
-  beforeEach(async () => {
-    await atom.packages.activate('tidalcycles');
+  beforeEach(() => {
+    atom.config.setSchema('tidalcycles', { type: 'object', properties: require('../lib/config') })
   })
 
   describe('command path', () => {
