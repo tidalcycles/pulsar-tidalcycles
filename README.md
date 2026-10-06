@@ -48,18 +48,14 @@ The plugin will load the `BootTidal.hs` file according to this sequence:
 SuperDirt can be started automatically at the first tidal code evaluation.
 This feature can be disabled in configuration.
 
-To use your own SuperCollider startup file, set **SuperDirt > Startup Path** in the
+To use your own SuperDirt startup file, set **SuperDirt > Startup Path** in the
 package settings to its absolute path (without surrounding quotes). The file
 must contain the code needed to start SuperDirt.
 
 The plugin chooses the startup file in this order:
   * if configured, the file set in **SuperDirt > Startup Path**;
-  * if it exists, `superdirt_startup.scd` in the first project folder;
+  * if it exists, `superdirt_startup.scd` in the project folder;
   * otherwise, the [startup file included with the plugin](./lib/superdirt_startup.scd).
-
-Leave **Startup Path** empty to keep the automatic selection. A configured path
-is passed directly to `sclang`; if it is invalid, the package does not fall back
-to another startup file. Changes take effect the next time SuperDirt is started.
 
 ### Autocomplete
 You can turn on/off autocomplete with this option.

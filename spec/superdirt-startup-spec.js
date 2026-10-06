@@ -12,7 +12,6 @@ describe('superdirt-startup', () => {
   beforeEach(() => {
     atom.config.unset(startupPathProperty)
     startup = new SuperDirtStartup()
-    startup.rootDirectories = [{ path: projectPath }]
   })
 
   afterEach(() => {
@@ -20,6 +19,7 @@ describe('superdirt-startup', () => {
   })
 
   it('should prefer a configured startup file over the project file', () => {
+    startup.rootDirectories = [{ path: projectPath }]
     const customPath = path.resolve('custom', 'startup.scd')
     atom.config.set(startupPathProperty, customPath)
     spyOn(fs, 'existsSync').and.returnValue(true)
@@ -52,12 +52,14 @@ describe('superdirt-startup', () => {
   })
 
   it('should choose the project startup file when no path is configured', () => {
+    startup.rootDirectories = [{ path: projectPath }]
     spyOn(fs, 'existsSync').and.returnValue(true)
 
     expect(startup.choosePath()).toBe(projectStartupPath)
   })
 
   it('should choose the project startup file when the configured path is empty', () => {
+    startup.rootDirectories = [{ path: projectPath }]
     atom.config.set(startupPathProperty, '')
     spyOn(fs, 'existsSync').and.returnValue(true)
 
@@ -65,6 +67,7 @@ describe('superdirt-startup', () => {
   })
 
   it('should choose the bundled startup file when the project file is missing', () => {
+    startup.rootDirectories = [{ path: projectPath }]
     spyOn(fs, 'existsSync').and.returnValue(false)
 
     expect(startup.choosePath()).toBe(defaultStartupPath)
