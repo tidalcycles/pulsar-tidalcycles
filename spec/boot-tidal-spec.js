@@ -7,6 +7,7 @@ describe('boot-tidal', () => {
 
   beforeEach(() => {
     atom.config.setSchema('tidalcycles', { type: 'object', properties: require('../lib/config') })
+    atom.config.unset('tidalcycles.bootTidalPath')
   })
 
   describe('boot file sequence', () => {
