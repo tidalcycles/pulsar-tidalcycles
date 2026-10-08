@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release: an explicit semver (e.g. 4.2.0) or a bump keyword (patch, minor, major)'
+        required: true
+        default: patch
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Resolve version
+        id: version
+        run: |
+          npm version "${{ github.event.inputs.version }}" --no-git-tag-version --allow-same-version
+          v=$(node -p "require('./package.json').version")
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "tag=v$v" >> "$GITHUB_OUTPUT"
+
+      - name: Commit, tag and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          git diff --cached --quiet || git commit -m "Prepare ${{ steps.version.outputs.tag }} release"
+          git tag "${{ steps.version.outputs.tag }}"
+          git push origin "HEAD:${{ github.ref_name }}"
+          git push origin "${{ steps.version.outputs.tag }}"
+
+      - name: Publish to the Pulsar registry
+        env:
+          TOKEN: ${{ secrets.ATOM_ACCESS_TOKEN }}
+        run: |
+          status=$(curl -sS -o response.json -w '%{http_code}' -X POST \
+            -H "Authorization: $TOKEN" \
+            "https://api.pulsar-edit.dev/api/packages/tidalcycles/versions?tag=${{ steps.version.outputs.tag }}")
+          cat response.json; echo
+          [ "$status" = "201" ] || { echo "Publish failed (HTTP $status)"; exit 1; }
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.version.outputs.tag }}" \
+            --title "${{ steps.version.outputs.tag }}" \
+            --generate-notes
