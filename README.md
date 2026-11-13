@@ -100,22 +100,26 @@ Filter all the console old logs and show only the last one
 
 The event highlighting allows to visualize the active events within a mini notation pattern. This means, that only events within quotation marks will be considered. 
 
+The highlighting is driven by the **playstate engine**: the package scripts `playstate.hs` into your GHCi session, which reports the pattern timeline (event windows in cycle time).
+
 #### TidalCycles configuration
 
-TidalCycles needs to be configured to send editor highlight events. This is usually done by modifying the `BootTidal.hs` file and adding an editor highlight target. Here is a working example:
+The shipped `BootTidal.hs` already contains everything the playstate engine needs — a second stream target (`clockTarget`) that streams the current cycle position to the editor as `/ping` OSC messages on port `6013`. No manual configuration is required when the default boot file is used.
+
+For a custom `BootTidal.hs`, add the clock target (this is the shipped default):
 
 ```haskell
-let editorTarget = Target {oName = "editor", oAddress = "127.0.0.1", oPort = 6013, oLatency = 0.02, oSchedule = Pre BundleStamp, oWindow = Nothing, oHandshake = False, oBusPort = Nothing }
-let editorShape = OSCContext "/editor/highlights"
+let clockShape = OSC "/ping" $ Named {requiredArgs = ["clock"]}
+let clockTarget = Target {oName = "clock", oAddress = "127.0.0.1", oPort = 6013, oLatency = ((3/10)), oSchedule = Live, oWindow = Nothing, oHandshake = False, oBusPort = Nothing }
 
-tidal <- startStream (defaultConfig {cFrameTimespan = 1/50}) [(superdirtTarget {oLatency = 0.2}, [superdirtShape]), (editorTarget, [editorShape])]
+tidalInst <- mkTidalWith [(superdirtTarget { oLatency = -0.02 }, [superdirtShape]), (clockTarget, [clockShape])] (defaultConfig {cFrameTimespan = 1/50, cProcessAhead = 1/20})
+
+-- This orphan instance makes the boot aliases work!
+-- It has to go after you define 'tidalInst'.
+instance Tidally where tidal = tidalInst
 ```
 
 The path to the `BootTidal.hs` file can be found in the TidalCycles output console after TidalCycles has been booted in the editor.
-
-#### Framerate
-
-The event highlight animation is in relation to the refresh rate of the users display and the `cFrameTimespan` value of TidalCycles. This means, that the animation fps needs to be smaller then the denominator of the `cFrameTimespan` value. However a good value is somehow between `20 fps` and `30 fps`.
 
 #### Custom Styles
 
@@ -139,6 +143,13 @@ And it is possible to override the styles for every individual stream like this:
 ```
 
 The pattern of the css class is `.event-highlight-[streamID]`.
+
+Styles can additionally be registered at runtime from an external client (e.g. SuperCollider) via OSC. They apply as `.event-highlight-osc-[streamID]` and take precedence over the classes above. The message carries the stream id and a full CSS declaration block:
+
+```supercollider
+var osc = NetAddr("127.0.0.1", 3335);
+osc.sendMsg("/pulsar/eventhighlighting/addstyle", "1", "background-color: #e7b9ed; outline: 2px solid #e7b9ed;");
+```
 
 ### Osc Eval
 It's possibile to evaluate tidal code with OSC messages.

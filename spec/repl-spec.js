@@ -2,17 +2,13 @@ const Repl = require('../lib/repl.js')
 
 describe('repl', () => {
   let consoleView = {
-    logStdout: () => {},
-    logMutes: () => {},
-    appendLog: () => {},
-    flushLog: () => {}
+    logStdout: () => { },
+    logMutes: () => { },
+    appendLog: () => { },
+    flushLog: () => { }
   }
   let bootTidal = { choosePath: () => '', blocks: () => [] }
   let repl = new Repl(consoleView, {}, bootTidal)
-
-  beforeEach(() => {
-    atom.config.setSchema('tidalcycles', { type: 'object', properties: require('../lib/config') })
-  })
 
   describe('init tidal', () => {
 
@@ -30,7 +26,7 @@ describe('repl', () => {
       spyOn(repl, 'tidalSendLine')
       spyOn(repl, 'tidalSendExpression')
       bootTidal.choosePath = () => 'lib whitespace/BootTidal.hs'
-      bootTidal.blocks = () => [':set im a single expression',"im a standard\ncode block"]
+      bootTidal.blocks = () => [':set im a single expression', "im a standard\ncode block"]
 
       repl.initTidal()
       expect(repl.tidalSendLine.calls.count({})).toBe(1)
