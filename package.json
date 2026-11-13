@@ -1,7 +1,7 @@
 {
   "name": "tidalcycles",
   "main": "./lib/tidalcycles",
-  "version": "4.3.0",
+  "version": "4.1.0",
   "description": "TidalCycles, a language for live coding algorithmic patterns.",
   "atomTestRunner": "runners/jasmine2-test-runner",
   "activationCommands": {
@@ -15,7 +15,7 @@
     ]
   },
   "dependencies": {
-    "directory-tree": "^3.6.0",
+    "directory-tree": "^3.5.2",
     "osc-min": "^1.1.2"
   },
   "repository": "git@github.com:tidalcycles/pulsar-tidalcycles.git",
@@ -26,7 +26,7 @@
   "providedServices": {
     "autocomplete.provider": {
       "versions": {
-        "4.0.0": "provide"
+        "2.0.0": "autocompleteProvider"
       }
     }
   }
